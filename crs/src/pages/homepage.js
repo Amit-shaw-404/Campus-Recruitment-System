@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,10 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const [flag, setFlag] = useState(0);
+  const [signup, setSignup] = useState(false);
 
   return (
     <div className={classes.root}>
@@ -53,7 +59,13 @@ export default function ButtonAppBar() {
           <Paper className={classes.paper}>xs=6</Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
+          <Paper className={classes.paper}>
+            {signup ? (
+              <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
+              ) : (
+              <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
+            )}
+          </Paper>
         </Grid>
       </Grid>
 
