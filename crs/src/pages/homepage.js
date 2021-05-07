@@ -12,6 +12,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+<<<<<<< HEAD
+=======
+import JobFeed from "../Student/JobFeed";
+>>>>>>> af661d6063ec58aee06887165426f8b7287c58e7
 
 
 const useStyles = makeStyles((theme) => ({
