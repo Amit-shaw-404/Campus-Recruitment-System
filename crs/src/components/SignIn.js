@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    border:'0px solid black',
+    borderRadius:'5px'
   },
   nav: {
     backgroundColor: "#f8f8ff",
@@ -63,7 +65,7 @@ export default function SignIn({ flag, setFlag, setSignUp }) {
           <Grid
             item
             xs={6}
-            style={{ padding: "15px 0", cursor: "pointer" }}
+            style={{ padding: "15px 0", cursor: "pointer", borderRadius:'10px' }}
             className={flag ? classes.active : null}
           >
             <div

@@ -12,11 +12,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+import JobFeed from "../components/JobFeed";
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    backgroundColor:'#f8f8f8',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -35,6 +37,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     color: '#000'
   },
+  signin:{
+    width:'100%',
+    marginTop:theme.spacing(10),
+  },
+  front:{
+    width:'100%',
+    marginTop:theme.spacing(10),
+  }
 }));
 
 export default function ButtonAppBar() {
@@ -53,24 +63,26 @@ export default function ButtonAppBar() {
           <Button color="inherit">Statistics</Button>
         </Toolbar>
       </AppBar>
-      <Container >
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
+      <JobFeed/>
+      {/*<Container >
+      <Grid container>
+        <Grid item xs={8}>
+          <div className={classes.front}>
+            <h2>IIESTs Campus Recruitment</h2>
+            <p>Join in to apply for placements</p>
+          </div>
         </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>
+        <Grid item xs={4}>
+          <div className={classes.signin}>
             {signup ? (
               <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
               ) : (
               <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
             )}
-          </Paper>
+          </div>
         </Grid>
       </Grid>
-
-      </Container>
-
+      </Container>*/}
     </div>
   );
 }
