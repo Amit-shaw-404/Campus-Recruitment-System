@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Homepage from './pages/homepage';
-import Profile from './pages/profile'
+import Profile from './pages/profile';
+import JobFeed from './components/JobFeed'
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Homepage />
+    <JobFeed />
   </React.StrictMode>,
   document.getElementById('root')
 );

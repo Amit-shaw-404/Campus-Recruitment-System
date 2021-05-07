@@ -12,7 +12,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import JobFeed from "../components/JobFeed";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,8 +62,7 @@ export default function Homepage() {
           <Button color="inherit">Statistics</Button>
         </Toolbar>
       </AppBar>
-      <JobFeed/>
-      {/*<Container >
+      <Container >
       <Grid container>
         <Grid item xs={8}>
           <div className={classes.front}>
@@ -82,7 +80,7 @@ export default function Homepage() {
           </div>
         </Grid>
       </Grid>
-      </Container>*/}
+      </Container>
     </div>
   );
 }

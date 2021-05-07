@@ -5,13 +5,18 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import {FormControlLabel, TextField} from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import Checkbox from '@material-ui/core/Checkbox';
+import StudentAppbar from '../components/studentAppBar';
 
 import "../App.css"
 import JobFeedComponent from './JobFeedComponent';
 
 const useStyles = makeStyles((theme) => ({
   root:{
+    backgroundColor:'#f8f8f8',
+  },
+  dashboard:{
     display:'flex',
+    backgroundColor:'#f8f8f8',
     justifyContent:'center',
     marginTop:theme.spacing(15),
     width:'100%'
@@ -48,9 +53,12 @@ const useStyles = makeStyles((theme) => ({
 export default function JobFeed(){
   const classes=useStyles();
   return(
-    <div className={classes.root}>
+    <div className={classes.root} >
+    <StudentAppbar />
+    <div className={classes.dashboard}>
+      
       <Grid container className={classes.container}>
-        <Grid item xs={12} lg={4} className={classes.filter}>
+        <Grid item xs={12} md={4} className={classes.filter}>
           <Paper>
             <div className={classes.filterTitle}>
               <FilterListIcon/>
@@ -87,7 +95,7 @@ export default function JobFeed(){
           </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={7} className={classes.feed}>
+        <Grid item xs={12} md={7} className={classes.feed}>
           <JobFeedComponent/>
           <JobFeedComponent/>
           <JobFeedComponent/>
@@ -95,6 +103,7 @@ export default function JobFeed(){
           <JobFeedComponent/>
         </Grid>
       </Grid>
+    </div>
     </div>
   );
 }
