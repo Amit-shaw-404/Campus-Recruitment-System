@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ButtonAppBar() {
+export default function Homepage() {
   const classes = useStyles();
   const [flag, setFlag] = useState(0);
   const [signup, setSignup] = useState(false);
