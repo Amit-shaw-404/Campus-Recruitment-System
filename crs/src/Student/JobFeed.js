@@ -5,7 +5,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import {FormControlLabel, TextField} from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import Checkbox from '@material-ui/core/Checkbox';
-import StudentAppbar from '../components/studentAppBar';
+import StudentAppbar from './studentAppBar';
 
 import "../App.css"
 import JobFeedComponent from './JobFeedComponent';
