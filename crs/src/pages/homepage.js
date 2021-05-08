@@ -12,10 +12,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-<<<<<<< HEAD
-=======
+
 import JobFeed from "../Student/JobFeed";
->>>>>>> af661d6063ec58aee06887165426f8b7287c58e7
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,25 +64,26 @@ export default function Homepage() {
           <Button color="inherit">Statistics</Button>
         </Toolbar>
       </AppBar>
-      <Container >
-      <Grid container>
-        <Grid item xs={8}>
-          <div className={classes.front}>
-            <h2>IIESTs Campus Recruitment</h2>
-            <p>Join in to apply for placements</p>
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.signin}>
-            {signup ? (
-              <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
-              ) : (
-              <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
-            )}
-          </div>
-        </Grid>
-      </Grid>
-      </Container>
+      <JobFeed/>
+      // <Container >
+      // <Grid container>
+      //   <Grid item xs={8}>
+      //     <div className={classes.front}>
+      //       <h2>IIESTs Campus Recruitment</h2>
+      //       <p>Join in to apply for placements</p>
+      //     </div>
+      //   </Grid>
+      //   <Grid item xs={4}>
+      //     <div className={classes.signin}>
+      //       {signup ? (
+      //         <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
+      //         ) : (
+      //         <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
+      //       )}
+      //     </div>
+      //   </Grid>
+      // </Grid>
+      // </Container>
     </div>
   );
 }
