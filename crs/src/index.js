@@ -7,10 +7,11 @@ import Profile from './pages/profile';
 import JobFeed from './Student/JobFeed'
 
 import reportWebVitals from './reportWebVitals';
+import StudentRegistration from './Student/Register/studentRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Profile />
+    <StudentRegistration />
   </React.StrictMode>,
   document.getElementById('root')
 );
