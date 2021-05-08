@@ -4,13 +4,14 @@ import './index.css';
 import App from './App';
 import Homepage from './pages/homepage';
 import Profile from './pages/profile';
-import JobFeed from './components/JobFeed'
+import JobFeed from './Student/JobFeed'
+import JobDetails from './Student/JobDetails';
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Homepage/>
+    <JobDetails/>
   </React.StrictMode>,
   document.getElementById('root')
 );

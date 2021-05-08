@@ -16,6 +16,7 @@ import SignUp from "../components/SignUp";
 import JobFeed from "../Student/JobFeed";
 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -64,26 +65,25 @@ export default function Homepage() {
           <Button color="inherit">Statistics</Button>
         </Toolbar>
       </AppBar>
-      <JobFeed/>
-      // <Container >
-      // <Grid container>
-      //   <Grid item xs={8}>
-      //     <div className={classes.front}>
-      //       <h2>IIESTs Campus Recruitment</h2>
-      //       <p>Join in to apply for placements</p>
-      //     </div>
-      //   </Grid>
-      //   <Grid item xs={4}>
-      //     <div className={classes.signin}>
-      //       {signup ? (
-      //         <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
-      //         ) : (
-      //         <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
-      //       )}
-      //     </div>
-      //   </Grid>
-      // </Grid>
-      // </Container>
+      {/*}<Container >
+      <Grid container>
+        <Grid item xs={8}>
+          <div className={classes.front}>
+            <h2>IIESTs Campus Recruitment</h2>
+            <p>Join in to apply for placements</p>
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.signin}>
+            {signup ? (
+              <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
+              ) : (
+              <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
+            )}
+          </div>
+        </Grid>
+      </Grid>
+      </Container>*/}
     </div>
   );
 }
