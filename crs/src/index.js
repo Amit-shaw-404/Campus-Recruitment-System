@@ -5,13 +5,14 @@ import App from './App';
 import Homepage from './pages/homepage';
 import Profile from './pages/profile';
 import JobFeed from './Student/JobFeed'
+import JobDetails from './Student/JobDetails';
 
 import reportWebVitals from './reportWebVitals';
 import StudentRegistration from './Student/Register/studentRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <StudentRegistration />
+    <JobDetails/>
   </React.StrictMode>,
   document.getElementById('root')
 );
