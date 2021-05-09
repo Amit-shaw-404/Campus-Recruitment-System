@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar';
+import StudentAppbar from'../Student/studentAppBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,15 +17,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     width: '100%'
   },
-  title: {
-    flexGrow: 1,
-  },
-  appbar: {
-    backgroundColor: '#fff',
-    color: '#000'
-  },
   dashboard: {
-      margin: '20px'
+      margin: '20px',
+      width: '75%'
   },
   avatar: {
     margin: '20px 0px',
@@ -44,18 +39,8 @@ export default function Profile() {
     <React.Fragment>
       <div className={classes.root}>
       
-        <AppBar position="static" className={classes.appbar}>
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Campus Recruitment System
-            </Typography>
-            <Button color="inherit" >Profile</Button>
-            <Button color="inherit">Edit Profile</Button>
-            <Button color="inherit">Register</Button>
-            <Button color="inherit">Job Feed</Button>
-          </Toolbar>
-        </AppBar>
-        <Grid container spacing={3} className={classes.dashboard}>
+        <StudentAppbar />
+        <Grid container spacing={3} className={classes.dashboard} justify="center" >
           <Grid item xs={3}>
             <Paper className={classes.paper}>
               <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',}}>

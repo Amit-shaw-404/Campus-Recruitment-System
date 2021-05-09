@@ -6,13 +6,14 @@ import Homepage from './pages/homepage';
 import Profile from './pages/profile';
 import JobFeed from './Student/JobFeed'
 import JobDetails from './Student/JobDetails';
+import AddJob from './Admin/addJob'
 
 import reportWebVitals from './reportWebVitals';
 import StudentRegistration from './Student/Register/studentRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <JobDetails/>
+    <AddJob/>
   </React.StrictMode>,
   document.getElementById('root')
 );
