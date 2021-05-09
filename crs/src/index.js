@@ -8,11 +8,11 @@ import JobFeed from './Student/JobFeed'
 import JobDetails from './Student/JobDetails';
 
 import reportWebVitals from './reportWebVitals';
-import StudentRegistration from './Student/Register/studentRegistration';
+import StudentRegisterMain from './Student/Register/studentRegisterMain';
 
 ReactDOM.render(
   <React.StrictMode>
-    <JobDetails/>
+    <StudentRegisterMain/>
   </React.StrictMode>,
   document.getElementById('root')
 );

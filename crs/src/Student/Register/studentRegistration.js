@@ -12,7 +12,7 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import EduDetailsForm from './EduDetailsForm';
-import Review from './Review';
+import Upload from './Upload';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Address address', 'Education details', 'Review your order'];
+const steps = ['Address address', 'Education details', 'Upload Resume'];
 
 function getStepContent(step) {
   switch (step) {
@@ -60,7 +60,7 @@ function getStepContent(step) {
     case 1:
       return <EduDetailsForm />;
     case 2:
-      return <Review />;
+      return <Upload />;
     default:
       throw new Error('Unknown step');
   }
@@ -98,11 +98,10 @@ export default function StudentRegistration() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Thank you.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  You have been successfully registered.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -120,7 +119,7 @@ export default function StudentRegistration() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Register' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>

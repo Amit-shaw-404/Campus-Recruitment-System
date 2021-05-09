@@ -65,7 +65,7 @@ export default function Homepage() {
           <Button color="inherit">Statistics</Button>
         </Toolbar>
       </AppBar>
-      {/*}<Container >
+      <Container >
       <Grid container>
         <Grid item xs={8}>
           <div className={classes.front}>
@@ -74,16 +74,16 @@ export default function Homepage() {
           </div>
         </Grid>
         <Grid item xs={4}>
-          <div className={classes.signin}>
+          <Paper className={classes.signin}>
             {signup ? (
               <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
               ) : (
               <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
             )}
-          </div>
+          </Paper>
         </Grid>
       </Grid>
-      </Container>*/}
+      </Container>
     </div>
   );
 }

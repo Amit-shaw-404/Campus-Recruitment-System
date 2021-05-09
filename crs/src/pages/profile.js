@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar';
+import StudentAppbar from '../Student/studentAppBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
     color: '#000'
   },
   dashboard: {
-      margin: '20px'
+      display: "block",
+      width: "75%",
+      margin: '0 auto'
   },
   avatar: {
     margin: '20px 0px',
@@ -44,19 +47,10 @@ export default function Profile() {
     <React.Fragment>
       <div className={classes.root}>
       
-        <AppBar position="static" className={classes.appbar}>
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Campus Recruitment System
-            </Typography>
-            <Button color="inherit" >Profile</Button>
-            <Button color="inherit">Edit Profile</Button>
-            <Button color="inherit">Register</Button>
-            <Button color="inherit">Job Feed</Button>
-          </Toolbar>
-        </AppBar>
-        <Grid container spacing={3} className={classes.dashboard}>
-          <Grid item xs={3}>
+        <StudentAppbar/>
+        <div className={classes.dashboard}>
+          <Grid container spacing={3} style={{marginTop: "50px"}}>
+          <Grid item sm={3} xs={12}>
             <Paper className={classes.paper}>
               <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',}}>
                 <Avatar variant="rounded" alt="Remy Sharp" className={classes.avatar} src="https://pbs.twimg.com/profile_images/1383196364792680448/N8CdupEu_400x400.jpg" />
@@ -64,12 +58,13 @@ export default function Profile() {
             </Paper>
             
           </Grid>
-          <Grid item xs={8}>
+          <Grid item sm={8} xs={12}>
             <Paper className={classes.paper}>
               <Typography>Amber head</Typography>
             </Paper>
           </Grid>
         </Grid>
+        </div>
       
 
       </div>
