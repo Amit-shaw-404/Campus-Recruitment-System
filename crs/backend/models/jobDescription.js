@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+
+const studentSchema = mongoose.Schema({
+    jobTitle:{type:String, require:true},
+    companyName:{type:String, require:true},
+    location:{type:String, require:true},
+    startDate:{type:String, require:true},
+    applyBy:{type:String, require:true},
+    salary:{type:String, require:true},
+    companyRank:{type:String, require:true},
+    companyDescription:{type:String, require:true},
+    jobDescription:{type:String, require:true},
+    eligibility:{type:String, require:true},
+    noOfOpening:{type:String, require:true},
+    perks:{type:String, require:true},
+});
+module.exports = mongoose.model('Student',studentSchema);
