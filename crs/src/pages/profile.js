@@ -51,7 +51,7 @@ export default function Profile() {
                 <Avatar variant="rounded" alt="Remy Sharp" className={classes.avatar} src="https://pbs.twimg.com/profile_images/1383196364792680448/N8CdupEu_400x400.jpg" />
               </div>
             </Paper>
-            
+
           </Grid>
           <Grid item sm={8} xs={12}>
             <Paper className={classes.paper}>
@@ -60,10 +60,7 @@ export default function Profile() {
           </Grid>
         </Grid>
         </div>
-      
-
       </div>
-          
     </React.Fragment>
   );
 }

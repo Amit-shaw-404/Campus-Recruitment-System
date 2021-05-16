@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "2"
   },
   form: {
-    width: "96%", // Fix IE 11 issue.
+    width: "90%", // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
   submit: {
@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
     color:'blue',
     fontSize:'20px',
     padding:'5px',
-    cursor:'pointer'
+    cursor:'pointer',
+    marginBottom:"30px"
   }
 }));
 

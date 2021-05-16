@@ -25,14 +25,13 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "2"
   },
   form: {
-    width: "96%", // Fix IE 11 issue.
+    width: "90%", // Fix IE 11 issue.
     marginTop: theme.spacing(1)
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
   },
   link:{
-    textDecoration:'underline',
     color:'blue',
     fontSize:'15px',
     padding:'5px',
@@ -115,7 +114,7 @@ export default function SignIn({ flag, setFlag, setSignUp }) {
           >
             Sign In
           </Button>
-          <Grid container>
+          <Grid container style={{margin:'0 0 30px 0'}}>
             <Grid item xs>
               <div className={classes.link}>Forgot password?</div>
             </Grid>
