@@ -7,7 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import "../App.css";
-import { MenuItem, InputAdornment, Typography } from '@material-ui/core';
+import { MenuItem, InputAdornment, Typography, Button } from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -223,6 +223,18 @@ export default function AddJob(){
                     fullWidth
                     />
                 </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-around"
+                  alignItems="center"
+                  style={{margin:'30px'}}
+                >
+                  <Button variant="contained" color="primary">
+                    Submit
+                  </Button>
+                </Grid>
+                
             </Paper>
           </Grid>
         </div>

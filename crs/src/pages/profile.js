@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar';
-import StudentAppbar from'../Student/studentAppBar';
+import StudentAppbar from '../Student/studentAppBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
   dashboard: {
+      margin: '20px',
       width: '75%',
       display: "block",
       width: "75%",
@@ -40,7 +41,8 @@ export default function Profile() {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <StudentAppbar />
+      
+        <StudentAppbar/>
         <div className={classes.dashboard}>
           <Grid container spacing={3} style={{marginTop: "50px"}}>
           <Grid item sm={3} xs={12}>
