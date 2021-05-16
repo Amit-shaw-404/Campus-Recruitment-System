@@ -46,6 +46,31 @@ app.post('/students', (req, res)=>{
     })
 })
 
+app.post('/addJob',(res,req)=> {
+    const job = new jobTemplate({
+        jobTitle:req.body.jobTitle,
+        companyName:req.body.companyName,
+        location:req.body.location,
+        startDate:req.body.startDate,
+        applyBy:req.body.applyBy,
+        salary:req.body.salary,
+        companyRank:req.body.companyRank,
+        companyDescription:req.body.companyDescription,
+        jobDescription:req.body.jobDescription,
+        eligibility:req.body.eligibility,
+        noOfOpening:req.body.noOfOpening,
+        perks:req.body.perks,
+    });
+    job.save()
+    .then(result => {res.json(result);
+        console.log("data sent");
+    })
+    .catch(err=>{
+        res.json(err);
+        console.log('error');
+    })
+})
+
 const Port=80;
 app.listen(Port, ()=>{
     console.log("Server is started");
