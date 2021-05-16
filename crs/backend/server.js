@@ -4,7 +4,7 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
 const jobTemplate=require('./models/jobDescription');
-
+const studentTemplate=require('./models/studentRegister');
 dotenv.config();
 
 //Connecting mongodb
@@ -17,7 +17,7 @@ app.use(express.json());
 app.get('/', (req, res)=>{
     res.status(200).send("Hello there");
 })
-app.post('/students', (req, res)=>{
+app.post('/studentRegister', (req, res)=>{
     const student=new studentTemplate({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
@@ -31,8 +31,8 @@ app.post('/students', (req, res)=>{
         course:req.body.course,
         batch:req.body.batch,
         cgpa:req.body.cgpa,
-        rank:req.body.country,
-        highMarks:req.body.country,
+        rank:req.body.rank,
+        highMarks:req.body.highMarks,
         boardMarks:req.body.boardMarks,
     });
     student.save()
