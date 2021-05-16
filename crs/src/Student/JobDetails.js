@@ -8,7 +8,7 @@ import WorkIcon from '@material-ui/icons/Work';
 
 const useStyles=makeStyles({
   root:{
-    backgroundColor:'#fff',
+    backgroundColor:'#f5f5f5',
   },
   container:{
     display:'flex',
@@ -19,7 +19,8 @@ const useStyles=makeStyles({
   paper:{
     width:"60%",
     boxSizing:'border-box',
-    padding:'20px'
+    padding:'20px',
+    boxShadow:"0 0 0"
   },
   main:{
     width:'60%'
