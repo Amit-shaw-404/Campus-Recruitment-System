@@ -3,7 +3,7 @@ const app=express();
 const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
-const studentTemplate=require('./model/studentSchema');
+const jobTemplate=require('./models/jobDescription');
 
 dotenv.config();
 
@@ -46,7 +46,7 @@ app.post('/students', (req, res)=>{
     })
 })
 
-app.post('/addJob',(res,req)=> {
+app.post('/addJob',(req,res)=> {
     const job = new jobTemplate({
         jobTitle:req.body.jobTitle,
         companyName:req.body.companyName,
