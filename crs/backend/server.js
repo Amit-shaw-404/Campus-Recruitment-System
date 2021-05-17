@@ -3,7 +3,7 @@ const app=express();
 const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
-const studentTemplate=require('./model/studentSchema');
+const studentSignUp = require('./models/studentSignUp');
 
 dotenv.config();
 
@@ -16,6 +16,20 @@ app.use(express.json());
 
 app.get('/', (req, res)=>{
     res.status(200).send("Hello there");
+})
+app.post("/students/signup", (req, res)=>{
+    const user=new studentSignUp({
+        email:req.body.email,
+        enroll:req.body.enroll,
+        password:req.body.password,
+    })
+    user.save()
+    .then(result=>{
+        res.json(result);
+    })
+    .catch(err=>{
+        res.json(err);
+    })
 })
 app.post('/students', (req, res)=>{
     const student=new studentTemplate({
