@@ -71,7 +71,7 @@ app.post('/addJob',(req,res)=> {
     })
 })
 
-const Port=80;
+const Port=5000;
 app.listen(Port, ()=>{
     console.log("Server is started");
 })
