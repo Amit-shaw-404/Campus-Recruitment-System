@@ -4,9 +4,33 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core';
 
 export default function EduDetailsForm() {
+
+  const [state,setState] = React.useState({
+    course:"",
+    batch:'',
+    startDate:'',
+    endDate:"",
+    averagecgpa:'',
+    rank:'',
+    marks12:'',
+    marks10:'',
+    boards12:'',
+    boards10:'',
+  })
+
+  const handleChange = (event) => {
+    console.log(event.target.name+" "+event.target.value)
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = () => {
+      console.log(state);
+  }
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -19,7 +43,9 @@ export default function EduDetailsForm() {
             <Select
               labelId="course-select-label"
               id="course-select"
+              name="course"
               label="Current course"
+              onChange={handleChange}
             >
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
@@ -34,6 +60,8 @@ export default function EduDetailsForm() {
               labelId="batch-select-label"
               id="batch-select"
               label="Batch"
+              name="batch"
+              onChange={handleChange}
             >
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
@@ -46,6 +74,8 @@ export default function EduDetailsForm() {
             id="startdate"
             label="Start-date"
             type="date"
+            name="startDate"
+            onChange={handleChange}
             defaultValue="2017-07-24"
             InputLabelProps={{
               shrink: true,
@@ -57,6 +87,8 @@ export default function EduDetailsForm() {
             id="enddate"
             label="End-date"
             type="date"
+            name="endDate"
+            onChange={handleChange}
             defaultValue="2021-05-24"
             InputLabelProps={{
               shrink: true,
@@ -67,7 +99,8 @@ export default function EduDetailsForm() {
           <TextField
             required
             id="AvgCGPA"
-            name="Average CGPA"
+            name="averagecgpa"
+            onChange={handleChange}
             label="Average CGPA"
             fullWidth
           />
@@ -76,19 +109,22 @@ export default function EduDetailsForm() {
           <TextField
             required
             id="ClassRank"
-            name="Rank"
+            name="rank"
+            onChange={handleChange}
             label="Rank in class"
             fullWidth
           />
         </Grid> 
         <Grid item xs={12} sm={6}>
-          <TextField id="standard-basic" label="Class 12th marks(%)" fullWidth />
+          <TextField id="standard-basic" name="marks12" onChange={handleChange} label="Class 12th marks(%)" fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl style={{width:"100%"}}>
             <InputLabel id="Boards12">Boards(10+2)</InputLabel>
               <Select
                 id="Boards12select"
+                name="boards12"
+                onChange={handleChange}
               >
               <MenuItem value="CBSE">CBSE</MenuItem>
               <MenuItem value="ICSE">ICSE</MenuItem>
@@ -98,13 +134,15 @@ export default function EduDetailsForm() {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <TextField id="standard-basic" label="Class 10th marks(%)" fullWidth />
+          <TextField id="standard-basic" name="marks10" onChange={handleChange} label="Class 10th marks(%)" fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl style={{width:"100%"}}>
             <InputLabel id="Boards10">Boards(10th)</InputLabel>
               <Select
                 id="Boards10select"
+                name="boards10"
+                onChange={handleChange}
               >
               <MenuItem value="CBSE">CBSE</MenuItem>
               <MenuItem value="ICSE">ICSE</MenuItem>
@@ -112,7 +150,13 @@ export default function EduDetailsForm() {
               </Select>
           </FormControl>
         </Grid>
-
+        <Button 
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
       </Grid>
     </React.Fragment>
   );
