@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const studentSchema = mongoose.Schema({
+const jobTemplate = mongoose.Schema({
     jobTitle:{type:String, require:true},
     companyName:{type:String, require:true},
     location:{type:String, require:true},
@@ -14,4 +14,4 @@ const studentSchema = mongoose.Schema({
     noOfOpening:{type:String, require:true},
     perks:{type:String, require:true},
 });
-module.exports = mongoose.model('Student',studentSchema);
+module.exports = mongoose.model('Jobs',jobTemplate);
