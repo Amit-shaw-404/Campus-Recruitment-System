@@ -5,6 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import {Link} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -120,7 +121,9 @@ export default function SignIn({ flag, setFlag}) {
             </Grid>
             <Grid item>
               <div className={classes.link}>
-                {"Don't have an account? Sign Up"}
+                <Link to="/signup" target="_blank" rel="noopener noreferrer">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </div>
             </Grid>
           </Grid>
