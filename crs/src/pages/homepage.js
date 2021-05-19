@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import axios from 'axios';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -54,6 +55,7 @@ export default function Homepage() {
   const classes = useStyles();
   const [flag, setFlag] = useState(0);
   const [signup, setSignup] = useState(false);
+  const [details, setDetails]=useState({});
 
   return (
     <div className={classes.root}>
@@ -76,11 +78,7 @@ export default function Homepage() {
         </Grid>
         <Grid item xs={4}>
           <Paper className={classes.signin}>
-            {signup ? (
-              <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
-              ) : (
-              <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
-            )}
+            <SignIn flag={flag} setFlag={setFlag}/>
           </Paper>
         </Grid>
       </Grid>
