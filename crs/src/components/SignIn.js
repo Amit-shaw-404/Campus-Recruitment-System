@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn({ flag, setFlag, setSignUp }) {
+export default function SignIn({ flag, setFlag}) {
   const classes = useStyles();
   return (
     <div>
@@ -119,13 +119,7 @@ export default function SignIn({ flag, setFlag, setSignUp }) {
               <div className={classes.link}>Forgot password?</div>
             </Grid>
             <Grid item>
-              <div
-                onClick={() => {
-                  setSignUp(true);
-                  setFlag(0);
-                }}
-                className={classes.link}
-              >
+              <div className={classes.link}>
                 {"Don't have an account? Sign Up"}
               </div>
             </Grid>
