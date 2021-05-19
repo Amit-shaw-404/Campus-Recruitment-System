@@ -9,12 +9,11 @@ import JobDetails from './Student/JobDetails';
 import AddJob from './Admin/addJob'
 
 import reportWebVitals from './reportWebVitals';
-import StudentRegisterMain from './Student/Register/studentRegisterMain';
-import SignUp from './components/SignUp';
+import StudentRegistration from './Student/Register/studentRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SignUp/>
+    <AddJob/>
   </React.StrictMode>,
   document.getElementById('root')
 );

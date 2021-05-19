@@ -15,6 +15,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import AdminAppbar from './adminAppbar';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,23 +59,38 @@ export default function AddJob(){
 
     const [state, setState] = React.useState({
         workFromHome: true,
+        startDate: Date('2022-01-01T21:11:54'),
+        applyBy: Date('2022-01-01T21:11:54'),
+        companyRank: 'A',
       });
     
       const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
+        console.log(event.target.name+" "+event.target.value)
+        setState({ ...state, [event.target.name]: event.target.value });
       };
 
-      const [rank, setRank] = React.useState('A');
+      const handleSubmit = () => {
+          console.log(state);
+          axios.post('http://localhost:5000/addJob', state)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+      }
 
-      const handleRankChange = (event) => {
-          setRank(event.target.value);
-      };
+      // const [rank, setRank] = React.useState('A');
 
-      const [selectedDate, setSelectedDate] = React.useState(new Date('2022-01-01T21:11:54'));
+      // const handleRankChange = (event) => {
+      //     setRank(event.target.value);
+      // };
 
-      const handleDateChange = (date) => {
-        setSelectedDate(date);
-      };
+      // const [selectedDate, setSelectedDate] = React.useState(new Date('2022-01-01T21:11:54'));
+
+      // const handleDateChange = (date) => {
+      //   setSelectedDate(date);
+      // };
 
   const classes=useStyles();
   return(
@@ -95,15 +111,15 @@ export default function AddJob(){
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField className={classes.textField} id="job-title" label="Job Title" variant="outlined" fullWidth/>
-                    <TextField className={classes.textField} id="company-name" label="Company Name" variant="outlined" fullWidth/>                
+                    <TextField className={classes.textField} id="job-title" name="jobTitle" label="Job Title" onChange={handleChange} variant="outlined" fullWidth/>
+                    <TextField className={classes.textField} id="company-name" name="companyName" label="Company Name" onChange={handleChange} variant="outlined" fullWidth/>                
                 </Grid>
                 <Grid
                 container
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField disabled className={classes.textField} id="location" label="Location" variant="outlined"/>
+                    <TextField className={classes.textField} id="location" name="location" label="Location" onChange={handleChange} variant="outlined"/>
                     {/* <TextField className={classes.textField} id="location" label="Location" variant="outlined"/> */}
                     <FormControlLabel
                         style={{margin:'10px', justifyContent:'center'}}
@@ -124,9 +140,10 @@ export default function AddJob(){
                       format="MM/dd/yyyy"
                       margin="normal"
                       id="start-date"
+                      name="startDate"
                       label="Start Date"
-                      value={selectedDate}
-                      onChange={handleDateChange}
+                      value={state.startDate}
+                      onChange={handleChange}
                       KeyboardButtonProps={{
                         'aria-label': 'change date',
                       }}
@@ -138,14 +155,15 @@ export default function AddJob(){
                       format="MM/dd/yyyy"
                       margin="normal"
                       id="apply-by"
+                      name="applyBy"
                       label="Apply By"
-                      value={selectedDate}
-                      onChange={handleDateChange}
+                      value={state.applyBy}
+                      onChange={handleChange}
                       KeyboardButtonProps={{
                         'aria-label': 'change date',
                       }}
                     />
-                    <TextField className={classes.textField} id="salary" label="Salary in LPA" variant="outlined" 
+                    <TextField className={classes.textField} id="salary" name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -164,10 +182,11 @@ export default function AddJob(){
                         className={classes.textField}
                         id="company-rank"
                         select
+                        name="companyRank"
                         label="Company Rank"
                         variant="outlined"
-                        value={rank}
-                        onChange={handleRankChange}
+                        value={state.companyRank}
+                        onChange={handleChange}
                         >
                         {ranks.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
@@ -184,43 +203,53 @@ export default function AddJob(){
                     <TextField
                     className={classes.textField}
                     id="company-description"
+                    name="companyDescription"
                     label="About the Company"
                     multiline
                     rows={5}
                     variant="outlined"
                     fullWidth
+                    onChange={handleChange}
                     />
                     <TextField
                     className={classes.textField}
                     id="job-description"
+                    name="jobDescription"
                     label="About the Job"
                     multiline
                     rows={6}
                     variant="outlined"
                     fullWidth
+                    onChange={handleChange}
                     />
                     <TextField
                     className={classes.textField}
                     id="eligibility"
+                    name="eligibility"
                     label="Eligibility"
                     multiline
                     rows={3}
                     variant="outlined"
                     fullWidth
+                    onChange={handleChange}
                     />
                     <TextField
                     className={classes.textField}
                     id="no-of-opening"
+                    name="noOfOpening"
                     label="Number of Openings"
                     variant="outlined"
                     fullWidth
+                    onChange={handleChange}
                     />
                     <TextField
                     className={classes.textField}
                     id="perks"
+                    name="perks"
                     label="Perks"
                     variant="outlined"
                     fullWidth
+                    onChange={handleChange}
                     />
                 </Grid>
                 <Grid
@@ -230,7 +259,7 @@ export default function AddJob(){
                   alignItems="center"
                   style={{margin:'30px'}}
                 >
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={handleSubmit}>
                     Submit
                   </Button>
                 </Grid>
