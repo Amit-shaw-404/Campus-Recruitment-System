@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -54,37 +55,39 @@ export default function Homepage() {
   const classes = useStyles();
   const [flag, setFlag] = useState(0);
   const [signup, setSignup] = useState(false);
+  const [details, setDetails]=useState({});
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appbar}>
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Campus Recruitment System
-          </Typography>
-          <Button color="inherit" >Login</Button>
-          <Button color="inherit">Statistics</Button>
-        </Toolbar>
-      </AppBar>
-      <Container >
-      <Grid container>
-        <Grid item xs={8}>
-          <div className={classes.front}>
-            <h2>IIESTs Campus Recruitment</h2>
-            <p>Join in to apply for placements</p>
-          </div>
+    <Router>
+      <div className={classes.root}>
+        <AppBar position="static" className={classes.appbar}>
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Campus Recruitment System
+            </Typography>
+            <Button color="inherit" >Login</Button>
+            <Button color="inherit">Statistics</Button>
+          </Toolbar>
+        </AppBar>
+        <Container >
+        <Grid container>
+          <Grid item xs={8}>
+            <div className={classes.front}>
+              <h2>IIESTs Campus Recruitment</h2>
+              <p>Join in to apply for placements</p>
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper className={classes.signin}>
+              <SignIn flag={flag} setFlag={setFlag}/>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.signin}>
-            {signup ? (
-              <SignUp flag={flag} setFlag={setFlag} setSignUp={setSignup}/>
-              ) : (
-              <SignIn flag={flag} setFlag={setFlag} setSignUp={setSignup} />
-            )}
-          </Paper>
-        </Grid>
-      </Grid>
-      </Container>
-    </div>
+        </Container>
+      </div>
+      <Switch>
+        <Route exact path="/signup" render={()=><SignUp/>}></Route>
+      </Switch>
+    </Router>
   );
 }

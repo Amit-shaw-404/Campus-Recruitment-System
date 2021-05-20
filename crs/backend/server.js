@@ -4,10 +4,13 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
 const jobTemplate=require('./models/jobDescription');
+const Student=require('./models/student');
+const StudentSignup=require('./models/studentSignUp');
+const Admin=require('./models/admin');
 const studentTemplate=require('./models/studentRegister');
 dotenv.config();
 
-//Connecting mongodb
+//Connecting mongodb 
 mongoose.connect(process.env.Database_access, ()=>console.log("database connected"));
 
 //middlewares
@@ -16,6 +19,58 @@ app.use(express.json());
 
 app.get('/', (req, res)=>{
     res.status(200).send("Hello there");
+})
+
+app.post('/students', (req, res)=>{
+    console.log(req.body);
+    Student.find({id:req.body.id}, (err, result)=>{
+        if(err){
+            res.status(404).send(err)
+        }else{
+            console.log(result.length)
+            if(result.length!=0)
+                res.status(200).send(result);
+            else{
+                res.status(404).send("Invalid Enroll id")
+            }
+        }
+    })
+})
+app.post('/admin', (req, res)=>{
+    Admin.find({id:req.body.id})
+    .exec()
+    .then(result=>{
+        res.status(200).send("ok");
+    }).catch(err=>{
+        res.status(404).send("Invalid Institute Id Id");
+    })
+})
+app.post("/checkAccount", (req, res)=>{
+    StudentSignup.find({email:req.body.email}, (err, result)=>{
+        if(err){
+            res.status(404).send(err)
+        }else{
+            console.log(result.length)
+            if(result.length==0)
+                res.status(200).send(result);
+            else{
+                res.status(404).send("Email id already exist")
+            }
+        }
+    })
+})
+app.post("/studentsSignUp", (req, res)=>{
+    const student=new StudentSignup({
+        email:req.body.email,
+        password:req.body.password,
+        id:req.body.id
+    })
+    student.save()
+    .then(result=>{
+        res.status(200).send('Successfully Registered');
+    }).catch(err=>{
+        res.status(404).send(err);
+    })
 })
 app.post('/studentRegister', (req, res)=>{
     const student=new studentTemplate({
