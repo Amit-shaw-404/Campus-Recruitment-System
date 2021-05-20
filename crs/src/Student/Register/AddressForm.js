@@ -5,8 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Button } from '@material-ui/core';
+import axios from 'axios';
 
-export default function AddressForm() {
+
+export default function AddressForm(props) {
 
   const [state,setState] = React.useState({
     firstname: "",
@@ -21,13 +23,20 @@ export default function AddressForm() {
   })
 
   const handleChange = (event) => {
-    console.log(event.target.name+" "+event.target.value)
-    setState({ ...state, [event.target.name]: event.target.value });
+    //console.log(event.target.name+" "+event.target.value)
+    props.setData({ ...(props.data), [event.target.name]: event.target.value});
   };
 
-  const handleSubmit = () => {
-      console.log(state);
-  }
+  // const handleSubmit = () => {
+  //   console.log(state);
+  //   axios.post('http://localhost:5000/studentRegister', state)
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function(err){
+  //     console.log(err);
+  //   })
+  // }
 
   return (
     <React.Fragment>
@@ -131,13 +140,13 @@ export default function AddressForm() {
             label="Use this address as contact details"
           />
         </Grid> */}
-        <Button 
+        {/* <Button 
           variant="contained"
           color="primary"
           onClick={handleSubmit}
         >
           Save
-        </Button>
+        </Button> */}
       </Grid>
     </React.Fragment>
   );

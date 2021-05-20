@@ -5,8 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core';
+import axios from 'axios';
 
-export default function EduDetailsForm() {
+export default function EduDetailsForm(props) {
 
   const [state,setState] = React.useState({
     course:"",
@@ -22,13 +23,20 @@ export default function EduDetailsForm() {
   })
 
   const handleChange = (event) => {
-    console.log(event.target.name+" "+event.target.value)
-    setState({ ...state, [event.target.name]: event.target.value });
+    //console.log(event.target.name+" "+event.target.value)
+    props.setData({ ...(props.data), [event.target.name]: event.target.value});
   };
 
-  const handleSubmit = () => {
-      console.log(state);
-  }
+  // const handleSubmit = () => {
+  //   console.log(state);
+  //   axios.post('http://localhost:5000/studentRegister', state)
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function(err){
+  //     console.log(err);
+  //   })
+  // }
 
 
   return (
@@ -150,13 +158,13 @@ export default function EduDetailsForm() {
               </Select>
           </FormControl>
         </Grid>
-        <Button 
+        {/* <Button 
           variant="contained"
           color="primary"
           onClick={handleSubmit}
         >
           Save
-        </Button>
+        </Button> */}
       </Grid>
     </React.Fragment>
   );

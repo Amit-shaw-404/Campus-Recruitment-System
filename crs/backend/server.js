@@ -21,19 +21,23 @@ app.post('/studentRegister', (req, res)=>{
     const student=new studentTemplate({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
-        contact:req.body.contact,
+        contact:req.body.contactno,
         address1:req.body.address1,
         address2:req.body.address2,
         city:req.body.city,
-        local:req.body.local,
-        pinCode:req.body.pinCode,
+        local:req.body.state,
+        pinCode:req.body.zip,
         country:req.body.country,
         course:req.body.course,
         batch:req.body.batch,
-        cgpa:req.body.cgpa,
+        cgpa:req.body.averagecgpa,
         rank:req.body.rank,
-        highMarks:req.body.highMarks,
-        boardMarks:req.body.boardMarks,
+        marks12:req.body.marks12,
+        marks10:req.body.marks10,
+        startDate:req.body.startDate,
+        applyBy:req.body.applyBy,
+        boards12:req.body.boards12,
+        boards10:req.body.boards10,
     });
     student.save()
     .then(result=>{
@@ -70,6 +74,7 @@ app.post('/addJob',(req,res)=> {
         console.log('error');
     })
 })
+
 
 const Port=5000;
 app.listen(Port, ()=>{

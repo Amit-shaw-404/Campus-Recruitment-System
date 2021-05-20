@@ -13,7 +13,7 @@ import StudentRegistration from './Student/Register/studentRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AddJob/>
+    <StudentRegistration/>
   </React.StrictMode>,
   document.getElementById('root')
 );
