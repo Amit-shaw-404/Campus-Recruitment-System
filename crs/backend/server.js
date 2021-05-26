@@ -3,6 +3,8 @@ const app=express();
 const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
+const jwt=require("jsonwebtoken");
+const localStorage=require("localStorage");
 const jobTemplate=require('./models/jobDescription');
 const Student=require('./models/student');
 const StudentSignup=require('./models/studentSignUp');
@@ -17,9 +19,43 @@ mongoose.connect(process.env.Database_access, ()=>console.log("database connecte
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res)=>{
-    res.status(200).send("Hello there");
+app.post('/signIn', (req, res)=>{
+    const {email, password}=req.body;
+    StudentSignup.find({email:email, password:password}, (err, result)=>{
+        if(err){
+            res.status(404).send("Login error");
+        }else{
+            if(result.length!=0){
+                const id=result[0].email;
+                const token=jwt.sign({id}, process.env.secret_key, {
+                    expiresIn:3000
+                })
+                res.send({user:result, token:token});
+            }else{
+                res.status(404).send("Invalid credentials");
+            }
+        }
+    })
 })
+const verifyJwt=(req, res, next)=>{
+    const token=req.headers['x-access-token'];
+    console.log(token);
+    if(!token){
+        res.status(404).send("token invalid");
+    }else{
+        jwt.verify(token, process.env.secret_key, (err, decoded)=>{
+            if(err){
+                res.status(404).send("Invalid request");
+            }else{
+                next();
+            }
+        })
+    }
+}
+app.get("/student_home", verifyJwt, (req, res)=>{
+    res.send("You have access");
+})
+
 
 app.post('/students', (req, res)=>{
     console.log(req.body);
