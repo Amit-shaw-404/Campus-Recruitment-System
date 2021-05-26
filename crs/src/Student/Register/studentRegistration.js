@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import EduDetailsForm from './EduDetailsForm';
 import Upload from './Upload';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -53,21 +54,26 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Address address', 'Education details', 'Upload Resume'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <EduDetailsForm />;
-    case 2:
-      return <Upload />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 export default function StudentRegistration() {
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm data={details} setData={setDetails}/>;
+      case 1:
+        return <EduDetailsForm data={details} setData={setDetails}/>;
+      case 2:
+        return <Upload />;
+      default:
+        throw new Error('Unknown step');
+    }
+    
+  }
+
   const classes = useStyles();
+  const [details, setDetails] = React.useState({});
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -76,6 +82,26 @@ export default function StudentRegistration() {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleSubmit = () => {
+    axios.post('http://localhost:5000/studentRegister', details)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  }
+
+  const handleClick = () => {
+    handleNext();
+    // console.log(activeStep);
+    // console.log(steps.length);
+    if(activeStep==2){
+      //console.log(details);
+      handleSubmit();
+    }
   };
 
   return (
@@ -116,7 +142,7 @@ export default function StudentRegistration() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={handleClick}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Register' : 'Next'}
