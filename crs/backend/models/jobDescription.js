@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const jobTemplate = mongoose.Schema({
     jobTitle:{type:String, require:true},
     companyName:{type:String, require:true},
-    location:{type:String, require:true},
+    location:{type:String, require:true, default:"Work from home"},
     startDate:{type:String, require:true},
     applyBy:{type:String, require:true},
     salary:{type:String, require:true},

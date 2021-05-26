@@ -3,14 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import "../App.css";
-import { MenuItem, InputAdornment, Typography, Button } from '@material-ui/core';
+import { MenuItem, InputAdornment, Button } from '@material-ui/core';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -66,11 +64,17 @@ export default function AddJob(){
     
       const handleChange = (event) => {
         console.log(event.target.name+" "+event.target.value)
-        setState({ ...state, [event.target.name]: event.target.value });
+        if(event.target.name==="workFromHome"){
+          setState({...state, [event.target.name]: event.target.checked })
+        }
+        else{
+          setState({ ...state, [event.target.name]: event.target.value });
+        }  
       };
 
-      const handleSubmit = () => {
+      const handleSubmit = (event) => {
           console.log(state);
+          event.preventDefault();
           axios.post('http://localhost:5000/addJob', state)
           .then(function (response) {
             console.log(response);
@@ -80,17 +84,6 @@ export default function AddJob(){
           })
       }
 
-      // const [rank, setRank] = React.useState('A');
-
-      // const handleRankChange = (event) => {
-      //     setRank(event.target.value);
-      // };
-
-      // const [selectedDate, setSelectedDate] = React.useState(new Date('2022-01-01T21:11:54'));
-
-      // const handleDateChange = (date) => {
-      //   setSelectedDate(date);
-      // };
 
   const classes=useStyles();
   return(
@@ -105,27 +98,32 @@ export default function AddJob(){
                 <div style={{margin:'20px'}}>
                   <h2>Add Job Opening</h2>
                 </div>
-                
+                <form onSubmit={handleSubmit}>
                 <Grid
                 container
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField className={classes.textField} id="job-title" name="jobTitle" label="Job Title" onChange={handleChange} variant="outlined" fullWidth/>
-                    <TextField className={classes.textField} id="company-name" name="companyName" label="Company Name" onChange={handleChange} variant="outlined" fullWidth/>                
+                    <TextField className={classes.textField} required id="job-title" name="jobTitle" label="Job Title" onChange={handleChange} variant="outlined" fullWidth/>
+                    <TextField className={classes.textField} required id="company-name" name="companyName" label="Company Name" onChange={handleChange} variant="outlined" fullWidth/>                
                 </Grid>
                 <Grid
                 container
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField className={classes.textField} id="location" name="location" label="Location" onChange={handleChange} variant="outlined"/>
-                    {/* <TextField className={classes.textField} id="location" label="Location" variant="outlined"/> */}
                     <FormControlLabel
                         style={{margin:'10px', justifyContent:'center'}}
-                        control={<Switch checked={state.workFromHome} onChange={handleChange} name="workFromHome" color="primary"/>}
+                        control={<Switch value={state.workFromHome} onChange={handleChange} name="workFromHome" color="primary"/>}
                         label="Work from Home"
                     />
+                    {
+                      state.workFromHome
+                      ? <TextField className={classes.textField} disabled label="Location" variant="outlined"
+                      />
+                      : <TextField className={classes.textField} required id="location" name="location" label="Location" onChange={handleChange} variant="outlined"
+                      />
+                    }
                 </Grid>
                 <Grid
                 container
@@ -136,6 +134,7 @@ export default function AddJob(){
                     <KeyboardDatePicker
                       disableToolbar
                       className={classes.textField}
+                      required
                       variant="outlined"
                       format="MM/dd/yyyy"
                       margin="normal"
@@ -151,6 +150,7 @@ export default function AddJob(){
                     <KeyboardDatePicker
                       disableToolbar
                       className={classes.textField}
+                      required
                       variant="outlined"
                       format="MM/dd/yyyy"
                       margin="normal"
@@ -163,7 +163,7 @@ export default function AddJob(){
                         'aria-label': 'change date',
                       }}
                     />
-                    <TextField className={classes.textField} id="salary" name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
+                    <TextField className={classes.textField} id="salary" required name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -180,6 +180,7 @@ export default function AddJob(){
                 alignItems="flex-start">
                     <TextField
                         className={classes.textField}
+                        required
                         id="company-rank"
                         select
                         name="companyRank"
@@ -204,6 +205,7 @@ export default function AddJob(){
                     className={classes.textField}
                     id="company-description"
                     name="companyDescription"
+                    required
                     label="About the Company"
                     multiline
                     rows={5}
@@ -213,6 +215,7 @@ export default function AddJob(){
                     />
                     <TextField
                     className={classes.textField}
+                    required
                     id="job-description"
                     name="jobDescription"
                     label="About the Job"
@@ -224,6 +227,7 @@ export default function AddJob(){
                     />
                     <TextField
                     className={classes.textField}
+                    required
                     id="eligibility"
                     name="eligibility"
                     label="Eligibility"
@@ -235,6 +239,7 @@ export default function AddJob(){
                     />
                     <TextField
                     className={classes.textField}
+                    required
                     id="no-of-opening"
                     name="noOfOpening"
                     label="Number of Openings"
@@ -244,6 +249,7 @@ export default function AddJob(){
                     />
                     <TextField
                     className={classes.textField}
+                    required
                     id="perks"
                     name="perks"
                     label="Perks"
@@ -259,11 +265,13 @@ export default function AddJob(){
                   alignItems="center"
                   style={{margin:'30px'}}
                 >
-                  <Button variant="contained" color="primary" onClick={handleSubmit}>
+                  <Button variant="contained" type="submit" color="primary">
                     Submit
                   </Button>
                 </Grid>
-                
+              
+                </form>
+  
             </Paper>
           </Grid>
         </div>
