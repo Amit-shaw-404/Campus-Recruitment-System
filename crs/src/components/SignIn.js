@@ -5,6 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import {Link} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn({ flag, setFlag, setSignUp }) {
+export default function SignIn({ flag, setFlag}) {
   const classes = useStyles();
   return (
     <div>
@@ -119,14 +120,10 @@ export default function SignIn({ flag, setFlag, setSignUp }) {
               <div className={classes.link}>Forgot password?</div>
             </Grid>
             <Grid item>
-              <div
-                onClick={() => {
-                  setSignUp(true);
-                  setFlag(0);
-                }}
-                className={classes.link}
-              >
-                {"Don't have an account? Sign Up"}
+              <div className={classes.link}>
+                <Link to="/signup" target="_blank" rel="noopener noreferrer">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </div>
             </Grid>
           </Grid>
