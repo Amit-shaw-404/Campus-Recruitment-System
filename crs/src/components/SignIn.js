@@ -40,8 +40,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn({ flag, setFlag}) {
+export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit}) {
   const classes = useStyles();
+  const handleChange=(event)=>{
+    setCred({...cred, [event.target.name]:event.target.value})
+  }
   return (
     <div>
       <div className={classes.paper}>
@@ -79,7 +82,7 @@ export default function SignIn({ flag, setFlag}) {
             </div>
           </Grid>
         </Grid>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -90,6 +93,7 @@ export default function SignIn({ flag, setFlag}) {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -101,6 +105,7 @@ export default function SignIn({ flag, setFlag}) {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
