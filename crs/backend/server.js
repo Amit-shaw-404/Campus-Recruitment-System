@@ -53,7 +53,7 @@ app.post('/admin_signIn', (req, res)=>{
                 })
                 res.send({user:result, token:token});
             }else{
-                res.status(404).send("Invalid credentials");
+                res.status(404).send("Invalid email id or password");
             }
         }
     })
