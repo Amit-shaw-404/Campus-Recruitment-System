@@ -38,6 +38,27 @@ app.post('/signIn', (req, res)=>{
         }
     })
 })
+app.post('/admin_signIn', (req, res)=>{
+    const {email, password}=req.body;
+    console.log(email);
+    console.log(password);
+    adminAccountTemplate.find({email:email, password:password}, (err, result)=>{
+        if(err){
+            res.status(404).send("Login error");
+        }else{
+            console.log(result);
+            if(result.length!=0){
+                const id=result[0].email;
+                const token=jwt.sign({id}, process.env.secret_key, {
+                    expiresIn:3000
+                })
+                res.send({user:result, token:token});
+            }else{
+                res.status(404).send("Invalid email id or password");
+            }
+        }
+    })
+})
 const verifyJwt=(req, res, next)=>{
     const token=req.headers['x-access-token'];
     console.log(token);
