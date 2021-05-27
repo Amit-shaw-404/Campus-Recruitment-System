@@ -57,19 +57,33 @@ const Homepage = (props) => {
   const [flag, setFlag] = useState(0);
   const [cred, setCred]=useState({});
   const [details, setDetails]=useState({signIn:false, Id:true})
+  const [showerr, setShowerr]=useState(false);
   const {history}=props;
 
   const handleSubmit=(event)=>{
-    event.preventDefault();  
-    axios.post("http://localhost:5000/signIn", cred)
-    .then(result=>{
-      localStorage.setItem("token", result.data.token);
-      history.push(`/${result.data.user[0].id}`);
-      setDetails({signIn:true, Id:result.data.user[0].id});
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+    event.preventDefault(); 
+    console.log(flag);
+    if(!flag) {
+      axios.post("http://localhost:5000/student_signIn", cred)
+      .then(result=>{
+        localStorage.setItem("token", result.data.token);
+        history.push(`/${result.data.user[0].id}`);
+        setDetails({signIn:true, Id:result.data.user[0].id});
+      })
+      .catch(err=>{
+        setShowerr(true);
+      })
+    }else{
+      axios.post("http://localhost:5000/admin_signIn", cred)
+      .then(result=>{
+        localStorage.setItem("token", result.data.token);
+        history.push(`/admin`);
+        setDetails({signIn:true});
+      })
+      .catch(err=>{
+        setShowerr(true);
+      })
+    }
   }
 
   return (
@@ -77,7 +91,13 @@ const Homepage = (props) => {
       {details.signIn?
         <BrowserRouter>
           <Switch>
-            <Redirect from="/" to={`/${details.id}`}/>
+            {
+              details.id===0?
+              <Redirect from="/" to={`/admin`}/>
+              :
+              <Redirect from="/" to={`/${details.id}`}/>
+            }
+            
           </Switch>
         </BrowserRouter>
         :
@@ -101,7 +121,15 @@ const Homepage = (props) => {
             </Grid>
             <Grid item xs={4}>
               <Paper className={classes.signin}>
-                <SignIn flag={flag} setFlag={setFlag} cred={cred} setCred={setCred} handleSubmit={handleSubmit}/>
+                <SignIn 
+                  flag={flag} 
+                  setFlag={setFlag} 
+                  cred={cred} 
+                  setCred={setCred} 
+                  handleSubmit={handleSubmit}
+                  showerr={showerr}
+                  setShowerr={setShowerr}
+                  />
               </Paper>
             </Grid>
           </Grid>

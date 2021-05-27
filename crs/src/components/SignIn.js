@@ -1,8 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Link} from "react-router-dom";
@@ -40,9 +38,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit}) {
+export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit, showerr, setShowerr}) {
   const classes = useStyles();
   const handleChange=(event)=>{
+    setShowerr(false);
     setCred({...cred, [event.target.name]:event.target.value})
   }
   return (
@@ -107,10 +106,13 @@ export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit}) {
             autoComplete="current-password"
             onChange={handleChange}
           />
-          <FormControlLabel
+          {showerr?<p style={{color:'#F32013', margin:'5px 0', fontSize:'13px'}}>
+            Invalid email or password
+            </p>:""}
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
