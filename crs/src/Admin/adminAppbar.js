@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function StudentAppbar() {
+export default function AdminAppbar({setSelected}) {
   const classes = useStyles();
 
   return (
@@ -26,9 +26,9 @@ export default function StudentAppbar() {
             <Typography variant="h6" className={classes.title}>
               Campus Recruitment System - Admin Panel
             </Typography>
-            <Button color="inherit" >Statistics</Button>
-            <Button color="inherit">Add Job</Button>
-            <Button color="inherit">Job Feed</Button>
+            <Button color="inherit" onClick={()=>setSelected(2)}>Statistics</Button>
+            <Button color="inherit" onClick={()=>setSelected(0)}>Add Job</Button>
+            <Button color="inherit" onClick={()=>setSelected(1)}>Job Feed</Button>
           </Toolbar>
         </AppBar>
     </React.Fragment>

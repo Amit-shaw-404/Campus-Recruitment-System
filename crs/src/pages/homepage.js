@@ -8,13 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
 
-import JobFeed from "../Student/JobFeed";
 import axios from 'axios';
 
 
@@ -66,7 +62,7 @@ const Homepage = (props) => {
     if(!flag) {
       axios.post("http://localhost:5000/student_signIn", cred)
       .then(result=>{
-        localStorage.setItem("token", result.data.token);
+        localStorage.setItem(`token${result.data.user[0].id}`, result.data.token);
         history.push(`/${result.data.user[0].id}`);
         setDetails({signIn:true, Id:result.data.user[0].id});
       })
