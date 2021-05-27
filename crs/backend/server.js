@@ -4,12 +4,12 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const dotenv=require('dotenv');
 const jwt=require("jsonwebtoken");
+const localStorage=require("localStorage");
 const jobTemplate=require('./models/jobDescription');
 const Student=require('./models/student');
 const StudentSignup=require('./models/studentSignUp');
 const Admin=require('./models/admin');
 const studentTemplate=require('./models/studentRegister');
-const adminAccountTemplate = require('./models/adminAccounts');
 dotenv.config();
 
 //Connecting mongodb 
@@ -19,8 +19,9 @@ mongoose.connect(process.env.Database_access, ()=>console.log("database connecte
 app.use(cors());
 app.use(express.json());
 
-app.post('/student_signIn', (req, res)=>{
+app.post('/signIn', (req, res)=>{
     const {email, password}=req.body;
+    //console.log()
     StudentSignup.find({email:email, password:password}, (err, result)=>{
         if(err){
             res.status(404).send("Login error");
@@ -37,29 +38,9 @@ app.post('/student_signIn', (req, res)=>{
         }
     })
 })
-app.post('/admin_signIn', (req, res)=>{
-    const {email, password}=req.body;
-    console.log(email);
-    console.log(password);
-    adminAccountTemplate.find({email:email, password:password}, (err, result)=>{
-        if(err){
-            res.status(404).send("Login error");
-        }else{
-            console.log(result);
-            if(result.length!=0){
-                const id=result[0].email;
-                const token=jwt.sign({id}, process.env.secret_key, {
-                    expiresIn:3000
-                })
-                res.send({user:result, token:token});
-            }else{
-                res.status(404).send("Invalid credentials");
-            }
-        }
-    })
-})
 const verifyJwt=(req, res, next)=>{
     const token=req.headers['x-access-token'];
+    console.log(token);
     if(!token){
         res.status(404).send("token invalid");
     }else{
@@ -73,9 +54,6 @@ const verifyJwt=(req, res, next)=>{
     }
 }
 app.get("/student_home", verifyJwt, (req, res)=>{
-    res.send("You have access");
-})
-app.get("/admin_home", verifyJwt, (req, res)=>{
     res.send("You have access");
 })
 
