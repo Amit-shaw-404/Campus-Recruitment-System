@@ -7,25 +7,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@material-ui/core';
 import axios from 'axios';
 
-export default function EduDetailsForm(props) {
+export default function EduDetailsForm({items, handleChange}) {
 
-  const [state,setState] = React.useState({
-    course:"",
-    batch:'',
-    startDate:'',
-    endDate:"",
-    averagecgpa:'',
-    rank:'',
-    marks12:'',
-    marks10:'',
-    boards12:'',
-    boards10:'',
-  })
-
-  const handleChange = (event) => {
-    //console.log(event.target.name+" "+event.target.value)
-    props.setData({ ...(props.data), [event.target.name]: event.target.value});
-  };
+  
+  // const handleChange = (event) => {
+  //   //console.log(event.target.name+" "+event.target.value)
+  //   setItems({ ...(items), [event.target.name]: event.target.value});
+  // };
 
   // const handleSubmit = () => {
   //   console.log(state);
@@ -52,6 +40,7 @@ export default function EduDetailsForm(props) {
               labelId="course-select-label"
               id="course-select"
               name="course"
+              value={items.course}
               label="Current course"
               onChange={handleChange}
             >
@@ -67,6 +56,7 @@ export default function EduDetailsForm(props) {
             <Select
               labelId="batch-select-label"
               id="batch-select"
+              value={items.batch}
               label="Batch"
               name="batch"
               onChange={handleChange}
@@ -84,6 +74,7 @@ export default function EduDetailsForm(props) {
             type="date"
             name="startDate"
             onChange={handleChange}
+            value={items.startDate}
             defaultValue="2017-07-24"
             InputLabelProps={{
               shrink: true,
@@ -96,6 +87,7 @@ export default function EduDetailsForm(props) {
             label="End-date"
             type="date"
             name="endDate"
+            value={items.endDate}
             onChange={handleChange}
             defaultValue="2021-05-24"
             InputLabelProps={{
@@ -106,10 +98,11 @@ export default function EduDetailsForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="AvgCGPA"
-            name="averagecgpa"
+            id="cgpa"
+            name="cgpa"
             onChange={handleChange}
-            label="Average CGPA"
+            value={items.cgpa}
+            label="CGPA"
             fullWidth
           />
         </Grid>
@@ -118,13 +111,14 @@ export default function EduDetailsForm(props) {
             required
             id="ClassRank"
             name="rank"
+            value={items.rank}
             onChange={handleChange}
             label="Rank in class"
             fullWidth
           />
         </Grid> 
         <Grid item xs={12} sm={6}>
-          <TextField id="standard-basic" name="marks12" onChange={handleChange} label="Class 12th marks(%)" fullWidth />
+          <TextField id="standard-basic" name="marks12" value={items.marks12} onChange={handleChange} label="Class 12th marks(%)" fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl style={{width:"100%"}}>
@@ -132,6 +126,7 @@ export default function EduDetailsForm(props) {
               <Select
                 id="Boards12select"
                 name="boards12"
+                value={items.boards12}
                 onChange={handleChange}
               >
               <MenuItem value="CBSE">CBSE</MenuItem>
@@ -142,7 +137,7 @@ export default function EduDetailsForm(props) {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <TextField id="standard-basic" name="marks10" onChange={handleChange} label="Class 10th marks(%)" fullWidth />
+          <TextField id="standard-basic" value={items.marks10} name="marks10" onChange={handleChange} label="Class 10th marks(%)" fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl style={{width:"100%"}}>
@@ -151,6 +146,7 @@ export default function EduDetailsForm(props) {
                 id="Boards10select"
                 name="boards10"
                 onChange={handleChange}
+                value={items.boards10}
               >
               <MenuItem value="CBSE">CBSE</MenuItem>
               <MenuItem value="ICSE">ICSE</MenuItem>

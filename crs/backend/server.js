@@ -76,6 +76,20 @@ app.get("/admin_home", verifyJwt, (req, res)=>{
     res.send("You have access");
 })
 
+app.post("/student_details", (req,res) => {
+    const {path} = req.body;
+    //console.log(path);
+    studentTemplate.find({registration:path}, (err,result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(result)
+            res.send(result); //result's length may be zero. in that case we will check it in stufent registration
+        }
+    })
+})
+
 
 app.post('/students', (req, res)=>{
     Student.find({id:req.body.id}, (err, result)=>{
@@ -131,21 +145,22 @@ app.post('/studentRegister', (req, res)=>{
     const student=new studentTemplate({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
-        contact:req.body.contactno,
+        contact:req.body.contact,
+        registration:req.body.registration,
         address1:req.body.address1,
         address2:req.body.address2,
         city:req.body.city,
-        local:req.body.state,
-        pinCode:req.body.zip,
+        state:req.body.state,
+        pinCode:req.body.pinCode,
         country:req.body.country,
         course:req.body.course,
         batch:req.body.batch,
-        cgpa:req.body.averagecgpa,
+        cgpa:req.body.cgpa,
         rank:req.body.rank,
         marks12:req.body.marks12,
         marks10:req.body.marks10,
         startDate:req.body.startDate,
-        applyBy:req.body.applyBy,
+        endDate:req.body.endDate,
         boards12:req.body.boards12,
         boards10:req.body.boards10,
     });
@@ -153,6 +168,41 @@ app.post('/studentRegister', (req, res)=>{
     .then(result=>{
         res.json(result);
         console.log("data sent");
+    })
+    .catch(err=>{
+        res.json(err);
+        console.log('error');
+    })
+})
+
+app.post('/studentUpdate', (req, res)=>{
+    
+    studentTemplate.updateOne({_id:req.body._id},{$set:{
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        contact:req.body.contact,
+        registration:req.body.registration,
+        address1:req.body.address1,
+        address2:req.body.address2,
+        city:req.body.city,
+        state:req.body.state,
+        pinCode:req.body.pinCode,
+        country:req.body.country,
+        course:req.body.course,
+        batch:req.body.batch,
+        cgpa:req.body.cgpa,
+        rank:req.body.rank,
+        marks12:req.body.marks12,
+        marks10:req.body.marks10,
+        startDate:req.body.startDate,
+        endDate:req.body.endDate,
+        boards12:req.body.boards12,
+        boards10:req.body.boards10,
+    }})
+
+    .then(result=>{
+        res.json(result);
+        console.log("data updated");
     })
     .catch(err=>{
         res.json(err);

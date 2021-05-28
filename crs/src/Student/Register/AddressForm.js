@@ -8,24 +8,14 @@ import { Button } from '@material-ui/core';
 import axios from 'axios';
 
 
-export default function AddressForm(props) {
+export default function AddressForm({items, handleChange}) {
 
-  const [state,setState] = React.useState({
-    firstname: "",
-    lastName: "",
-    contactno: "",
-    address1: "",
-    address2: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-  })
-
-  const handleChange = (event) => {
-    //console.log(event.target.name+" "+event.target.value)
-    props.setData({ ...(props.data), [event.target.name]: event.target.value});
-  };
+  // const handleChange = (event) => {
+  //   //console.log(event.target.name+" "+event.target.value)
+  //   console.log(items)
+  //   console.log(setItems)
+  //   setItems({ ...(items), [event.target.name]: event.target.value});
+  // };
 
   // const handleSubmit = () => {
   //   console.log(state);
@@ -50,6 +40,7 @@ export default function AddressForm(props) {
             id="firstName"
             name="firstName"
             label="First name"
+            value = {items.firstName}
             fullWidth
             onChange={handleChange}
             autoComplete="given-name"
@@ -61,6 +52,7 @@ export default function AddressForm(props) {
             id="lastName"
             name="lastName"
             label="Last name"
+            value = {items.lastName}
             onChange={handleChange}
             fullWidth
             autoComplete="family-name"
@@ -69,12 +61,25 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             required
-            id="contactno"
-            name="contactno"
+            id="contact"
+            name="contact"
             label="Contact no."
+            value = {items.contact}
             fullWidth
             onChange={handleChange}
             autoComplete="contact"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="registration"
+            name="registration"
+            label="Enrollment No."
+            value = {items.registration}
+            fullWidth
+            onChange={handleChange}
+            autoComplete="registration"
           />
         </Grid>
         <Grid item xs={12}>
@@ -84,6 +89,7 @@ export default function AddressForm(props) {
             name="address1"
             label="Address line 1"
             fullWidth
+            value = {items.address1}
             onChange={handleChange}
             autoComplete="address-line1"
           />
@@ -94,6 +100,7 @@ export default function AddressForm(props) {
             name="address2"
             label="Address line 2"
             fullWidth
+            value = {items.address2}
             onChange={handleChange}
             autoComplete="address-line2"
           />
@@ -105,19 +112,21 @@ export default function AddressForm(props) {
             name="city"
             label="City"
             fullWidth
+            value = {items.city}
             onChange={handleChange}
             autoComplete="address-level2"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth onChange={handleChange} />
+          <TextField id="state" name="state" value = {items.state} label="State/Province/Region" fullWidth onChange={handleChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="zip"
-            name="zip"
+            id="pinCode"
+            name="pinCode"
             label="Zip / Postal code"
+            value = {items.pinCode}
             fullWidth
             onChange={handleChange}
             autoComplete="postal-code"
@@ -129,6 +138,7 @@ export default function AddressForm(props) {
             id="country"
             name="country"
             label="Country"
+            value = {items.country}
             fullWidth
             onChange={handleChange}
             autoComplete="country"

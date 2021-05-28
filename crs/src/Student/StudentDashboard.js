@@ -40,9 +40,33 @@ const StudentDashboard=()=>{
     const classes = useStyles();
     const [access, setAccess]=useState(false);
     const [selected, setSelected]=useState(0);
+    // const [items, setItems] = useState({
+    //     firstName: '',
+    //     lastName: '',
+    //     contact: '',
+    //     registration: '',
+    //     address1: '',
+    //     address2: '',
+    //     city: '',
+    //     local: '',
+    //     pinCode: '',
+    //     country: '',
+    //     course: '',
+    //     batch: '',
+    //     cgpa: '',
+    //     rank: '',
+    //     marks12: '',
+    //     marks10: '',
+    //     startDate: '',
+    //     applyBy: '',
+    //     boards12: '',
+    //     boards10: '',
+    // });
+    
     const [msg, setMsg]=useState("Please wait, loading...")
     const history=useHistory();
     const path=history.location.pathname.replace("/","");
+    
     useEffect(()=>{
         const request=async()=>{
             axios.get("http://localhost:5000/student_home", {
@@ -50,6 +74,17 @@ const StudentDashboard=()=>{
                     "x-access-token":localStorage.getItem(`token${path}`),
                 }
             }).then(res=>{
+                //console.log(path);
+                // axios.post("http://localhost:5000/student_details",{path:path})
+                //     .then(
+                //         (result) => {
+                //             //console.log(result)
+                //             if(result.data.length!=0)
+                //                 setItems(result.data[0])
+                //             //console.log(items)
+                //         }
+                //     )
+                //     .catch(e=>console.log(e))
                 setAccess(true);
             }).catch(err=>{
                 setMsg("Session expired, please login again!");
@@ -67,7 +102,7 @@ const StudentDashboard=()=>{
             <>
                 <StudentAppbar setSelected={setSelected}/>
                 (
-                    {selected===0&&<StudentRegisterMain/>}
+                    {selected===0&&<StudentRegisterMain path={path}/>}
                     {selected===1&&<JobFeed/>}
                 )
             </>
