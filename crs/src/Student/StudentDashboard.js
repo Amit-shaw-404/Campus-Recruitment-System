@@ -45,7 +45,6 @@ const StudentDashboard=()=>{
     const path=history.location.pathname.replace("/","");
     useEffect(()=>{
         const request=async()=>{
-            console.log(`token${path}`);
             axios.get("http://localhost:5000/student_home", {
                 headers:{
                     "x-access-token":localStorage.getItem(`token${path}`),
