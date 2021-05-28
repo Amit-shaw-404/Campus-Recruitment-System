@@ -41,6 +41,8 @@ app.post('/admin_signIn', (req, res)=>{
     const {email, password}=req.body;
     console.log(email);
     console.log(password);
+    //console.log(adminAccountTemplate.find({email:'yorsamit1@gmail.com'}));
+    console.log(StudentSignup.find({email:'yorsamit1@gmail.com'}));
     adminAccountTemplate.find({email:email, password:password}, (err, result)=>{
         if(err){
             res.status(404).send("Login error");
