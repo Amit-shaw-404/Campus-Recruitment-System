@@ -90,7 +90,6 @@ export default function AddJob(){
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         
         <div className={classes.root} >
-        <AdminAppbar/>
         <div className={classes.dashboard}>
           
           <Grid container className={classes.container}>

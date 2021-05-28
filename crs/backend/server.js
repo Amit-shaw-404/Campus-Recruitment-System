@@ -39,15 +39,10 @@ app.post('/student_signIn', (req, res)=>{
 })
 app.post('/admin_signIn', (req, res)=>{
     const {email, password}=req.body;
-    console.log(email);
-    console.log(password);
-    //console.log(adminAccountTemplate.find({email:'yorsamit1@gmail.com'}));
-    console.log(StudentSignup.find({email:'yorsamit1@gmail.com'}));
     adminAccountTemplate.find({email:email, password:password}, (err, result)=>{
         if(err){
             res.status(404).send("Login error");
         }else{
-            console.log(result);
             if(result.length!=0){
                 const id=result[0].email;
                 const token=jwt.sign({id}, process.env.secret_key, {
@@ -83,7 +78,6 @@ app.get("/admin_home", verifyJwt, (req, res)=>{
 
 
 app.post('/students', (req, res)=>{
-    console.log(req.body);
     Student.find({id:req.body.id}, (err, result)=>{
         if(err){
             res.status(404).send(err)
