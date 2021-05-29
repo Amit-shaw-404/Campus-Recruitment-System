@@ -20,6 +20,12 @@ const studentTemplate=mongoose.Schema({
     applyBy:{type:String, require:true},
     boards12:{type:String, require:true},
     boards10:{type:String, require:true},
+    job:[{
+        jobId:String,
+        company:String,
+        title:String,
+        status:String,
+    }]
 })
 
 module.exports=mongoose.model('studentDetails', studentTemplate);
