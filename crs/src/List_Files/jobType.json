@@ -1,0 +1,30 @@
+[
+    {
+      "value": "Full Stack Developer",
+      "label": "Full Stack Developer"
+    },
+    {
+      "value": "Machine Learning Engineer",
+      "label": "Machine Learning Engineer"
+    },
+    {
+      "value": "Front End Developer",
+      "label": "Front End Developer"
+    },
+    {
+      "value": "Backend Developer",
+      "label": "Backend Developer"
+    },
+    {
+      "value": "Business Analyst",
+      "label": "Business Analyst"
+    },
+    {
+      "value": "Android App Developer",
+      "label": "Android App Developer"
+    },
+    {
+      "value": "Data Scientist",
+      "label": "Data Scientist"
+    }
+]
