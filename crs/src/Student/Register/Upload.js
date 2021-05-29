@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Upload() {
+export default function Upload({path}) {
   const classes = useStyles();
 
   return (
@@ -27,11 +27,21 @@ export default function Upload() {
       <Typography variant="h5" gutterBottom>
         Resume
       </Typography>
+      
 
-      <Grid >
+      {/* <Grid >
         <input type="file" accept=".pdf" className={classes.Input}/>
         <Button variant="contained" color="primary">Upload</Button>
-      </Grid>
+      </Grid> */}
+
+      <form action="http://localhost:5000/stats" enctype="multipart/form-data" method="post" >
+        <div class="form-group">
+          <input value={path} name="enrol" type="hidden"></input>
+          <input type="file" class="form-control-file" name="resume" />
+          <Button type="submit" variant="contained" color="primary">Upload</Button>
+          {/* <input type="submit" value="Get me the stats!" class="btn btn-default"/>             */}
+        </div>
+      </form>
       
     </div>
   );
