@@ -340,8 +340,6 @@ app.post('/stats', uploadResume.single('resume'), function (req, res) {
 
 
 
-// const resume = require.file.filename
-
 
 
 const Port=5000;
