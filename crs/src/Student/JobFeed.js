@@ -2,13 +2,25 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
 import FilterListIcon from '@material-ui/icons/FilterList';
-import {FormControlLabel, MenuItem, TextField} from '@material-ui/core';
-import Switch from '@material-ui/core/Switch';
 import StudentAppbar from './studentAppBar';
 import "../App.css"
-import JobFeedComponent from './JobFeedComponent';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {FormControlLabel, IconButton} from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
+import Checkbox from '@material-ui/core/Checkbox';
+import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+
+
+import "../App.css"
+import JobFeedComponent from './JobFeedComponent';
+import JobDetails from './JobDetails';
 
 const useStyles = makeStyles((theme) => ({
   root:{
@@ -59,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function JobFeed(){
+export default function JobFeed({isAdmin}){
 
   const [filter, setFilter] = useState({
     category:'Business Analyst',
@@ -115,9 +127,20 @@ export default function JobFeed(){
   }, [filter])
 
   const classes=useStyles();
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return(
     <div className={classes.root} >
-    <StudentAppbar />
     <div className={classes.dashboard}>
       
       <Grid container className={classes.container}>
@@ -194,13 +217,31 @@ export default function JobFeed(){
             {
               details.map((item, index)=>(
               <div key={index}>
-                <JobFeedComponent item={item}/>
+                <JobFeedComponent handleClick={handleClickOpen} item={item}/>
               </div>
               ))
             }
         </Grid>
       </Grid>
-    </div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">
+            <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
+              <h2>Details</h2>
+              <IconButton onClick={handleClose}>
+                  <CloseIcon/>
+              </IconButton>
+            </div>
+          </DialogTitle>
+          <DialogContent>
+            <JobDetails isAdmin={isAdmin}/>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }

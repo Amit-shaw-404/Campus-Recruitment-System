@@ -58,7 +58,7 @@ export default function JobFeedComponent(props){
           <p style={{textAlign:'center'}}>{props.item.applyBy}</p>
         </div>
       </div>
-      <Button color="primary">
+      <Button color="primary" onClick={props.handleClick}>
         details
       </Button>
     </Paper>

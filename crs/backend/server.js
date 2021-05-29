@@ -39,13 +39,10 @@ app.post('/student_signIn', (req, res)=>{
 })
 app.post('/admin_signIn', (req, res)=>{
     const {email, password}=req.body;
-    console.log(email);
-    console.log(password);
     adminAccountTemplate.find({email:email, password:password}, (err, result)=>{
         if(err){
             res.status(404).send("Login error");
         }else{
-            console.log(result);
             if(result.length!=0){
                 const id=result[0].email;
                 const token=jwt.sign({id}, process.env.secret_key, {
@@ -53,7 +50,7 @@ app.post('/admin_signIn', (req, res)=>{
                 })
                 res.send({user:result, token:token});
             }else{
-                res.status(404).send("Invalid credentials");
+                res.status(404).send("Invalid email id or password");
             }
         }
     })
@@ -79,9 +76,66 @@ app.get("/admin_home", verifyJwt, (req, res)=>{
     res.send("You have access");
 })
 
+app.post("/student_details", (req,res) => {
+    const {path} = req.body;
+    //console.log(path);
+    studentTemplate.find({registration:path}, (err,result) => {
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(result)
+            res.send(result); //result's length may be zero. in that case we will check it in stufent registration
+        }
+    })
+})
+
+
+app.post("/student_update", (req, res)=>{
+    const {enroll, jobId, company, title}=req.body;
+    var job=[];
+    var applied=[];
+    var flag=0;
+    studentTemplate.find({registration:enroll}, (err, result)=>{
+        if(err){
+            res.status(404).send(error);
+        }else{
+            job=result[0].job;
+            for(let i=0;i<job.length;i++){
+                if(job[i].jobId===jobId)flag=1;
+            }
+            console.log("flag = "+flag);
+        }
+    })
+    jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
+        if(err){
+            res.status(404).send(err);
+        }else{
+            applied=result[0].applied;
+        }
+    })
+    job.push({jobId:jobId, company:company, title:title, status:'pending'});
+    applied.push(enroll);
+    if(flag==0){
+        studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+        jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+})
 
 app.post('/students', (req, res)=>{
-    console.log(req.body);
     Student.find({id:req.body.id}, (err, result)=>{
         if(err){
             res.status(404).send(err)
@@ -135,21 +189,22 @@ app.post('/studentRegister', (req, res)=>{
     const student=new studentTemplate({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
-        contact:req.body.contactno,
+        contact:req.body.contact,
+        registration:req.body.registration,
         address1:req.body.address1,
         address2:req.body.address2,
         city:req.body.city,
-        local:req.body.state,
-        pinCode:req.body.zip,
+        state:req.body.state,
+        pinCode:req.body.pinCode,
         country:req.body.country,
         course:req.body.course,
         batch:req.body.batch,
-        cgpa:req.body.averagecgpa,
+        cgpa:req.body.cgpa,
         rank:req.body.rank,
         marks12:req.body.marks12,
         marks10:req.body.marks10,
         startDate:req.body.startDate,
-        applyBy:req.body.applyBy,
+        endDate:req.body.endDate,
         boards12:req.body.boards12,
         boards10:req.body.boards10,
     });
@@ -157,6 +212,41 @@ app.post('/studentRegister', (req, res)=>{
     .then(result=>{
         res.json(result);
         console.log("data sent");
+    })
+    .catch(err=>{
+        res.json(err);
+        console.log('error');
+    })
+})
+
+app.post('/studentUpdate', (req, res)=>{
+    
+    studentTemplate.updateOne({_id:req.body._id},{$set:{
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        contact:req.body.contact,
+        registration:req.body.registration,
+        address1:req.body.address1,
+        address2:req.body.address2,
+        city:req.body.city,
+        state:req.body.state,
+        pinCode:req.body.pinCode,
+        country:req.body.country,
+        course:req.body.course,
+        batch:req.body.batch,
+        cgpa:req.body.cgpa,
+        rank:req.body.rank,
+        marks12:req.body.marks12,
+        marks10:req.body.marks10,
+        startDate:req.body.startDate,
+        endDate:req.body.endDate,
+        boards12:req.body.boards12,
+        boards10:req.body.boards10,
+    }})
+
+    .then(result=>{
+        res.json(result);
+        console.log("data updated");
     })
     .catch(err=>{
         res.json(err);

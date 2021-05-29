@@ -1,10 +1,11 @@
-import StudentAppbar from './studentAppBar';
 import {Paper, Typography, Button, Divider} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import WorkIcon from '@material-ui/icons/Work';
+import AppliedStudent from './AppliedStudent';
+import axios from 'axios';
 
 const useStyles=makeStyles({
   root:{
@@ -13,17 +14,15 @@ const useStyles=makeStyles({
   container:{
     display:'flex',
     justifyContent:'center',
-    marginTop:'70px',
-    marginBottom:'30px'
   },
   paper:{
-    width:"60%",
+    width:"100%",
     boxSizing:'border-box',
     padding:'20px',
     boxShadow:"0 0 0"
   },
   main:{
-    width:'60%'
+    width:'80%'
   },
   location:{
     display:'flex',
@@ -52,11 +51,20 @@ const useStyles=makeStyles({
     }
   }
 })
-export default function JobDetails(){
+export default function JobDetails({isAdmin}){
   const classes=useStyles();
+  const handleSubmit=async()=>{
+    await axios.post("http://localhost:5000/student_update", {enroll:"510819012", jobId:"60afd1cf73dc1d298ac316f4", company:
+    "Kasper Consulting Private Limited", title:"Business Analyst"})
+    .then(result=>{
+      console.log(result);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
   return (
     <div className={classes.root}>
-      <StudentAppbar/>
       <div className={classes.container}>
         <Paper className={classes.paper}>
           <div className={classes.main}>
@@ -131,12 +139,24 @@ export default function JobDetails(){
               <p style={{margin:'10px'}}>4</p>
             </div>
             <div style={{display:'flex', justifyContent:'center', marginTop:'30px'}}>
-              <Button className={classes.applyButton}>
+              {isAdmin?"":
+              <Button className={classes.applyButton} onClick={handleSubmit}>
                 Apply Now
               </Button>
+              }
             </div>
         </Paper>
       </div>
+        {isAdmin?
+        <>
+          <AppliedStudent/>
+          <AppliedStudent/>
+          <AppliedStudent/>
+          <AppliedStudent/>
+          <AppliedStudent/>
+        </>
+        :""
+        }
     </div>
   );
 }
