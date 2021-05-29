@@ -13,5 +13,6 @@ const jobTemplate = mongoose.Schema({
     eligibility:{type:String, require:true},
     noOfOpening:{type:String, require:true},
     perks:{type:String, require:true},
+    applied:[String]
 });
 module.exports = mongoose.model('Jobs',jobTemplate);
