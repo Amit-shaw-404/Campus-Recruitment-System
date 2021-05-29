@@ -25,7 +25,7 @@ export default function AdminDashboard(){
       request();
     }, [])
     return(
-        <>
+        <div style={{backgroundColor:"#f8f8f8", minHeight:'100vh'}}>
             {!access?
             <div style={{
                 display:'flex', 
@@ -44,6 +44,6 @@ export default function AdminDashboard(){
                 {selected===1&&<JobFeed isAdmin={true}/>}
             </>
             }
-        </>
+        </div>
     )
 }
