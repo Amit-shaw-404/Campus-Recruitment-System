@@ -304,6 +304,17 @@ app.post('/jobFeed', (req, res)=>{
     })
 })
 
+app.post("/find_job", (req, res)=>{
+    jobTemplate.find({_id:req.body.id}, (err, result)=>{
+        if(err)res.status(404).send(err);
+        else{
+            if(result.length!=0){
+                res.send(result[0]);
+            }
+        }
+    })
+})
+
 var profileStorage = multer.diskStorage({
     destination: "./public/data/uploads/",
     filename: (req, file, cb) => {
