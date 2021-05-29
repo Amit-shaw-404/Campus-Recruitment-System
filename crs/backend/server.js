@@ -10,6 +10,8 @@ const StudentSignup=require('./models/studentSignUp');
 const Admin=require('./models/admin');
 const studentTemplate=require('./models/studentRegister');
 const adminAccountTemplate = require('./models/adminAccounts');
+const multer = require('multer');
+const path = require('path');
 dotenv.config();
 
 //Connecting mongodb 
@@ -278,6 +280,30 @@ app.post('/addJob',(req,res)=> {
         console.log('error');
     })
 })
+
+
+var profileStorage = multer.diskStorage({
+    destination: "./public/data/uploads/",
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "_" + req.body.enrol + path.extname(file.originalname))
+        console.log(req.body)
+    }
+})
+
+var uploadResume = multer({
+    storage: profileStorage
+})
+
+app.post('/stats', uploadResume.single('resume'), function (req, res) {
+   // req.file is the name of your file in the form above, here 'uploaded_file'
+   // req.body will hold the text fields, if there were any 
+   console.log(req.file, req.body)
+});
+
+
+
+// const resume = require.file.filename
+
 
 
 const Port=5000;

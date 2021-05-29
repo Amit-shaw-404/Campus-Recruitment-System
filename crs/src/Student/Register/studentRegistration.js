@@ -60,6 +60,7 @@ const steps = ['Address address', 'Education details', 'Upload Resume'];
 export default function StudentRegistration({path}) {
 
   const [update, setUpdate] = useState(false);
+  const [present, setPresent] = useState(false);
   const [items, setItems] = useState({
     firstName: '',
     lastName: '',
@@ -91,8 +92,10 @@ export default function StudentRegistration({path}) {
           (result) => {
             // console.log(path)
             // console.log(result)
-            if(result.data.length!=0)
+            if(result.data.length!=0){
               setItems(result.data[0])
+              setPresent(true)
+            }
             //console.log(items)
           }
         )
@@ -110,7 +113,7 @@ export default function StudentRegistration({path}) {
       case 1:
         return <EduDetailsForm items={items} handleChange={handleChange}/>;
       case 2:
-        return <Upload />;
+        return <Upload path={path}/>;
       default:
         throw new Error('Unknown step');
     }
@@ -118,12 +121,6 @@ export default function StudentRegistration({path}) {
   }
 
   const classes = useStyles();
-<<<<<<< HEAD
-  const [details, setDetails] = React.useState({
-    job:[]
-  });
-=======
->>>>>>> e387992856a740f493392edadac5080e56c51b31
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -157,7 +154,7 @@ export default function StudentRegistration({path}) {
   const handleUpdate = () => {
     axios.post('http://localhost:5000/studentUpdate', items)
     .then(function (response) {
-      console.log(response);
+      //console.log(response);
     })
     .catch(function(err){
       console.log(err);
@@ -170,10 +167,9 @@ export default function StudentRegistration({path}) {
     // console.log(steps.length);
     if(activeStep==2){
       //console.log(details);
-      update?
-      handleUpdate()
-      :
-      handleSubmit()
+      
+      if(update&&present) handleUpdate()
+      else if (!present&&update) handleSubmit() 
     }
   };
   return (
