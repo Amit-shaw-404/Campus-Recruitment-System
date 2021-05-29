@@ -56,7 +56,7 @@ const ranks = [
 export default function AddJob(){
 
     const [state, setState] = React.useState({
-        workFromHome: true,
+        workFromHome: false,
         startDate: Date('2022-01-01T21:11:54'),
         applyBy: Date('2022-01-01T21:11:54'),
         companyRank: 'A',
@@ -64,7 +64,7 @@ export default function AddJob(){
       });
     
       const handleChange = (event) => {
-        console.log(event.target.name+" "+event.target.value)
+        console.log(event.target)
         if(event.target.name==="workFromHome"){
           setState({...state, [event.target.name]: event.target.checked })
         }
@@ -125,44 +125,55 @@ export default function AddJob(){
                       />
                     }
                 </Grid>
+                <div style={{display:'flex', width:'100%', justifyContent:'space-around'}}>
+                      <Grid
+                        item
+                        xs={5}
+                        style={{margin:"10px 10px 15px 0"}}
+                      >                      
+                        <TextField
+                        id="date"
+                        type="date"
+                        defaultValue="2017-05-24"
+                        name="startDate"
+                        label="Start Date*"
+                        value={state.startDate}
+                        onChange={handleChange}
+                        fullWidth
+                        className={classes.date}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                      </Grid>
+                      <Grid
+                       item
+                       xs={5}
+                       style={{margin:"10px 15px 15px 0"}}
+                      >
+                        <TextField
+                          id="date"
+                          type="date"
+                          defaultValue="2017-05-24"
+                          name="applyBy"
+                          label="Apply By*"
+                          value={state.applyBy}
+                          onChange={handleChange}
+                          fullWidth
+                          className={classes.date}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                      </Grid>
+                    
+                    
+                </div>
                 <Grid
                 container
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    
-                    <KeyboardDatePicker
-                      disableToolbar
-                      className={classes.textField}
-                      required
-                      variant="outlined"
-                      format="MM/dd/yyyy"
-                      margin="normal"
-                      id="start-date"
-                      name="startDate"
-                      label="Start Date"
-                      value={state.startDate}
-                      onChange={handleChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                    <KeyboardDatePicker
-                      disableToolbar
-                      className={classes.textField}
-                      required
-                      variant="outlined"
-                      format="MM/dd/yyyy"
-                      margin="normal"
-                      id="apply-by"
-                      name="applyBy"
-                      label="Apply By"
-                      value={state.applyBy}
-                      onChange={handleChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
                     <TextField className={classes.textField} id="salary" required name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
                         InputProps={{
                         startAdornment: (
@@ -171,7 +182,6 @@ export default function AddJob(){
                             </InputAdornment>
                         ),
                     }}/>
-                    
                 </Grid>
                 <Grid
                 container
