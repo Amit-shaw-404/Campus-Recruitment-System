@@ -6,6 +6,8 @@ import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import WorkIcon from '@material-ui/icons/Work';
 import AppliedStudent from './AppliedStudent';
 import axios from 'axios';
+import { useHistory, withRouter } from 'react-router';
+import { useEffect, useState } from 'react';
 
 const useStyles=makeStyles({
   root:{
@@ -51,11 +53,25 @@ const useStyles=makeStyles({
     }
   }
 })
-export default function JobDetails({isAdmin}){
+const JobDetails=({isAdmin, id})=>{
+  const [details, setDetails]=useState({});
+  const history=useHistory();
+  const enroll=history.location.pathname.replace("/", "");
   const classes=useStyles();
+  useEffect(()=>{
+    const request=async()=>{
+      const data=await axios.post("http://localhost:5000/find_job", {id:id})
+      .then(res=>{
+        setDetails(res.data);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    }
+    request();
+  },[])
   const handleSubmit=async()=>{
-    await axios.post("http://localhost:5000/student_update", {enroll:"510819012", jobId:"60afd1cf73dc1d298ac316f4", company:
-    "Kasper Consulting Private Limited", title:"Business Analyst"})
+    await axios.post("http://localhost:5000/student_update", {enroll:enroll, jobId:details._id, company:details.companyName, title:details.jobTitle})
     .then(result=>{
       console.log(result);
     })
@@ -68,11 +84,11 @@ export default function JobDetails({isAdmin}){
       <div className={classes.container}>
         <Paper className={classes.paper}>
           <div className={classes.main}>
-            <Typography variant="h6">Front end development</Typography>
-            <p style={{color:'grey', margin:'10px 0'}}>Microsoft</p>
+            <Typography variant="h6">{details.jobTitle}</Typography>
+            <p style={{color:'grey', margin:'10px 0'}}>{details.companyName}</p>
             <div className={classes.location}>
               <LocationOnIcon style={{fontSize:'22px', color:'grey'}}/>
-              <p>Delhi, Gurgaon</p>
+              <p>{details.workFromHome?"Work From Home":details.location}</p>
             </div>
             <div className={classes.details}>
               <div>
@@ -80,21 +96,21 @@ export default function JobDetails({isAdmin}){
                 <PlayCircleOutlineIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
                 <p>Start date</p>
                 </div>
-                <p>Immediately</p>
+                <p>{details.startDate}</p>
               </div>
               <div>
                 <div style={{display:'flex', color:'grey'}}>
                 <WorkIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
                 <p>Salary</p>
                 </div>
-                <p>10 lpa</p>
+                <p>{details.salary} LPA</p>
               </div>
               <div>
                 <div style={{display:'flex', color:'grey'}}>
                 <HourglassFullIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
                 <p>Apply by</p>
                 </div>
-                <p style={{textAlign:'center'}}>20 May '21'</p>
+                <p style={{textAlign:'center'}}>{details.applyBy}</p>
               </div>
             </div>
           </div>
@@ -102,22 +118,16 @@ export default function JobDetails({isAdmin}){
             <div className={classes.companyDetails}>
               <h2>About Company</h2>
               <p style={{margin:'20px 0'}}>
-                Our sole aim at MentorBoxx is to bridge the gap between universities & industries. We select 30 students every month to regularly interact with the right industry experts, work on live industry projects, and grasp as much as industrial knowledge possible.
+                {details.companyDescription}
               </p>
             </div>
             <div className={classes.companyDetails}>
               <h3>About Job</h3>
               <p style={{margin:'20px 0'}}>
-              Key responsibilities:
-              <br/><br/>
-              <p>1. Handle a team of 30 interns to complete day-to-day marketing activities</p>
-              <p>2. Ensure that the marketing campaigns result in traction on the platform</p>
-              <p>3. Set up a team of ambassadors in colleges all across India</p>
-              <p>4. Ensure the targets by the interns are completed on a daily basis</p>
-              <p>5. Manage a team for social media marketing, on-ground marketing, and sales</p>
+                {details.jobDescription}
               </p>
             </div>
-            <div className={classes.companyDetails}>
+            {/* <div className={classes.companyDetails}>
               <h3>Skill(s) Required</h3>
               <p style={{margin:'20px 0'}}>
                 <div style={{display:'flex', flexWrap:'wrap'}}>
@@ -127,16 +137,16 @@ export default function JobDetails({isAdmin}){
                   <span className={classes.skills}>ReactJs</span>
                 </div>
               </p>
-            </div>
+            </div> */}
             <div className={classes.companyDetails}>
               <h3>Who can apply</h3>
               <p style={{margin:'20px 0'}}>
-                1. Candidates with past experience in marketing, advertising, business development & sales will be preferred
+                {details.eligibility}
               </p>
             </div>
             <div className={classes.companyDetails}>
               <h3>Number of openings</h3>
-              <p style={{margin:'10px'}}>4</p>
+              <p style={{margin:'10px'}}>{details.noOfOpening}</p>
             </div>
             <div style={{display:'flex', justifyContent:'center', marginTop:'30px'}}>
               {isAdmin?"":
@@ -160,3 +170,5 @@ export default function JobDetails({isAdmin}){
     </div>
   );
 }
+
+export default withRouter(JobDetails);
