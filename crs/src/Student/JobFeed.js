@@ -74,13 +74,14 @@ const useStyles = makeStyles((theme) => ({
 export default function JobFeed({isAdmin}){
 
   const [filter, setFilter] = useState({
-    category:'Business Analyst',
+    category:'',
     workFromHome:false,
-    location:'Gurgaon',
-    companyRank:'C',
+    location:'',
+    companyRank:'',
   });
   const [isLoading, setIsLoading]=useState(true);
   const [err, setErr]=useState(false);
+  const [id, setId]=useState("1");
 
   const [details, setDetails] = useState([{
    jobTitle:"",
@@ -138,7 +139,8 @@ export default function JobFeed({isAdmin}){
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (job_id) => {
+    setId(job_id);
     setOpen(true);
   };
 
@@ -241,26 +243,26 @@ export default function JobFeed({isAdmin}){
           }
         </Grid>
       </Grid>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogTitle id="responsive-dialog-title">
-            <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
-              <h2>Details</h2>
-              <IconButton onClick={handleClose}>
-                  <CloseIcon/>
-              </IconButton>
-            </div>
-          </DialogTitle>
-          <DialogContent>
-            <JobDetails isAdmin={isAdmin}/>
-          </DialogContent>
-        </Dialog>
-      </div>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          <div style={{display:'flex', width:'100%', justifyContent:'space-between'}}>
+            <h2>Details</h2>
+            <IconButton onClick={handleClose}>
+              <CloseIcon/>
+            </IconButton>
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <JobDetails isAdmin={isAdmin} id={id}/>
+        </DialogContent>
+      </Dialog>
     </div>
+  </div>
   );
 }
 
