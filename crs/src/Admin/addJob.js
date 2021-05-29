@@ -12,8 +12,10 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import AdminAppbar from './adminAppbar';
 import axios from 'axios';
+
+import category from '../List_Files/jobType.json';
+import place from '../List_Files/location.json'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
       margin: '10px',
+  },
+  selectField:{
+    margin:'10px',
+    border:'1px solid #B8B8B8',
+    padding:'20px 10px',
+    borderRadius:'5px',
+    fontSize:'14px',  
+  },
+  option:{
+    fontSize:'14px',
+    color:"#000"
   }
 }));
 
@@ -57,9 +70,17 @@ export default function AddJob(){
 
     const [state, setState] = React.useState({
         workFromHome: false,
+        companyName:"",
         startDate: Date('2022-01-01T21:11:54'),
         applyBy: Date('2022-01-01T21:11:54'),
         companyRank: 'A',
+        companyDescription:'',
+        applyBy:'',
+        noOfOpening:'',
+        eligibility:'',
+        perks:'',
+        jobDescription:'',
+        salary:'',
         applied:[]
       });
     
@@ -78,7 +99,22 @@ export default function AddJob(){
           event.preventDefault();
           axios.post('http://localhost:5000/addJob', state)
           .then(function (response) {
-            console.log(response);
+            setState({
+              workFromHome: false,
+              companyName:"",
+              startDate: Date('2022-01-01T21:11:54'),
+              applyBy: Date('2022-01-01T21:11:54'),
+              companyRank: 'A',
+              companyDescription:'',
+              applyBy:'',
+              noOfOpening:'',
+              eligibility:'',
+              perks:'',
+              jobDescription:'',
+              salary:'',
+              applied:[]
+            })
+            alert("Job Added");
           })
           .catch(function(err){
             console.log(err);
@@ -104,8 +140,12 @@ export default function AddJob(){
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField className={classes.textField} required id="job-title" name="jobTitle" label="Job Title" onChange={handleChange} variant="outlined" fullWidth/>
-                    <TextField className={classes.textField} required id="company-name" name="companyName" label="Company Name" onChange={handleChange} variant="outlined" fullWidth/>                
+                    <select className={classes.selectField} style={{width:"100%"}} name="jobTitle" onChange={handleChange} required>
+                      {category.map((item,index)=>(
+                        <option className={classes.option} key={index}>{item.label}</option>
+                      ))}
+                    </select>
+                    <TextField className={classes.textField} required value={state.companyName} id="company-name" name="companyName" label="Company Name" onChange={handleChange} variant="outlined" fullWidth/>                
                 </Grid>
                 <Grid
                 container
@@ -118,10 +158,14 @@ export default function AddJob(){
                         label="Work from Home"
                     />
                     {
-                      state.workFromHome
-                      ? <TextField className={classes.textField} disabled label="Location" variant="outlined"
-                      />
-                      : <TextField className={classes.textField} required id="location" name="location" label="Location" onChange={handleChange} variant="outlined"
+                      !state.workFromHome
+                      ?
+                        <select className={classes.selectField} style={{width:"22%"}} name="location" onChange={handleChange} required>
+                          {place.map((item,index)=>(
+                            <option className={classes.option} key={index}>{item.label}</option>
+                          ))}
+                        </select>
+                      : <TextField disabled className={classes.textField} required id="location" name="location" label="Location" onChange={handleChange} variant="outlined"
                       />
                     }
                 </Grid>
@@ -174,7 +218,7 @@ export default function AddJob(){
                 direction="row"
                 justify="flex-start"
                 alignItems="flex-start">
-                    <TextField className={classes.textField} id="salary" required name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
+                    <TextField className={classes.textField} id="salary" value={state.salary} required name="salary" label="Salary in LPA" variant="outlined" onChange={handleChange}
                         InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
@@ -218,6 +262,7 @@ export default function AddJob(){
                     required
                     label="About the Company"
                     multiline
+                    value={state.companyDescription}
                     rows={5}
                     variant="outlined"
                     fullWidth
@@ -229,6 +274,7 @@ export default function AddJob(){
                     id="job-description"
                     name="jobDescription"
                     label="About the Job"
+                    value={state.jobDescription}
                     multiline
                     rows={6}
                     variant="outlined"
@@ -241,6 +287,7 @@ export default function AddJob(){
                     id="eligibility"
                     name="eligibility"
                     label="Eligibility"
+                    value={state.eligibility}
                     multiline
                     rows={3}
                     variant="outlined"
@@ -253,6 +300,7 @@ export default function AddJob(){
                     id="no-of-opening"
                     name="noOfOpening"
                     label="Number of Openings"
+                    value={state.noOfOpening}
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -262,6 +310,7 @@ export default function AddJob(){
                     required
                     id="perks"
                     name="perks"
+                    value={state.perks}
                     label="Perks"
                     variant="outlined"
                     fullWidth
