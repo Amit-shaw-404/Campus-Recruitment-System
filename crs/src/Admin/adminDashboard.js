@@ -41,7 +41,7 @@ export default function AdminDashboard(){
             <>
                 <AdminAppbar setSelected={setSelected}/>
                 {selected===0&&<AddJob/>}
-                {selected===1&&<JobFeed/>}
+                {selected===1&&<JobFeed isAdmin={true}/>}
             </>
             }
         </>

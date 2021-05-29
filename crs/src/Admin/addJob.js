@@ -60,6 +60,7 @@ export default function AddJob(){
         startDate: Date('2022-01-01T21:11:54'),
         applyBy: Date('2022-01-01T21:11:54'),
         companyRank: 'A',
+        applied:[]
       });
     
       const handleChange = (event) => {

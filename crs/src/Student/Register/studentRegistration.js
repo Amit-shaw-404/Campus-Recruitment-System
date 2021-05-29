@@ -72,7 +72,9 @@ export default function StudentRegistration() {
   }
 
   const classes = useStyles();
-  const [details, setDetails] = React.useState({});
+  const [details, setDetails] = React.useState({
+    job:[]
+  });
 
   const [activeStep, setActiveStep] = React.useState(0);
 

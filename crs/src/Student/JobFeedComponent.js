@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     margin:'30px 0',
   }
 }));
-export default function JobFeedComponent(){
+export default function JobFeedComponent({handleClick}){
+  //job type, company, location, start, salary, Applyby, details
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -58,7 +59,7 @@ export default function JobFeedComponent(){
           <p style={{textAlign:'center'}}>20 May '21'</p>
         </div>
       </div>
-      <Button color="primary">
+      <Button color="primary" onClick={handleClick}>
         details
       </Button>
     </Paper>

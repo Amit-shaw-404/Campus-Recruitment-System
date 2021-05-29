@@ -68,7 +68,7 @@ const StudentDashboard=()=>{
                 <StudentAppbar setSelected={setSelected}/>
                 (
                     {selected===0&&<StudentRegisterMain/>}
-                    {selected===1&&<JobFeed/>}
+                    {selected===1&&<JobFeed isAdmin={false}/>}
                 )
             </>
         }
