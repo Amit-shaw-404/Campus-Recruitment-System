@@ -77,6 +77,50 @@ app.get("/admin_home", verifyJwt, (req, res)=>{
 })
 
 
+app.post("/student_update", (req, res)=>{
+    const {enroll, jobId, company, title}=req.body;
+    var job=[];
+    var applied=[];
+    var flag=0;
+    studentTemplate.find({registration:enroll}, (err, result)=>{
+        if(err){
+            res.status(404).send(error);
+        }else{
+            job=result[0].job;
+            for(let i=0;i<job.length;i++){
+                if(job[i].jobId===jobId)flag=1;
+            }
+            console.log("flag = "+flag);
+        }
+    })
+    jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
+        if(err){
+            res.status(404).send(err);
+        }else{
+            applied=result[0].applied;
+        }
+    })
+    job.push({jobId:jobId, company:company, title:title, status:'pending'});
+    applied.push(enroll);
+    if(flag==0){
+        studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+        jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+})
+
 app.post('/students', (req, res)=>{
     Student.find({id:req.body.id}, (err, result)=>{
         if(err){
