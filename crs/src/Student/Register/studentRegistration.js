@@ -118,12 +118,9 @@ export default function StudentRegistration({path}) {
   }
 
   const classes = useStyles();
-<<<<<<< HEAD
   const [details, setDetails] = React.useState({
     job:[]
   });
-=======
->>>>>>> e387992856a740f493392edadac5080e56c51b31
 
   const [activeStep, setActiveStep] = React.useState(0);
 
