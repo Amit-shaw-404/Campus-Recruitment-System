@@ -25,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
     margin:'30px 0',
   }
 }));
-export default function JobFeedComponent(){
+export default function JobFeedComponent(props){
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
-      <Typography variant="h6">Front end development</Typography>
-      <p style={{color:'grey', margin:'10px 0'}}>Microsoft</p>
+      <Typography variant="h6">{props.item.jobTitle}</Typography>
+      <p style={{color:'grey', margin:'10px 0'}}>{props.item.companyName}</p>
       <div className={classes.location}>
         <LocationOnIcon style={{fontSize:'22px', color:'grey'}}/>
-        <p>Delhi, Gurgaon</p>
+        <p>{props.item.location}</p>
       </div>
       <div className={classes.details}>
         <div>
@@ -41,21 +41,21 @@ export default function JobFeedComponent(){
           <PlayCircleOutlineIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
           <p>Start date</p>
           </div>
-          <p>Immediately</p>
+          <p>{props.item.startDate}</p>
         </div>
         <div>
           <div style={{display:'flex', color:'grey'}}>
           <WorkIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
           <p>Salary</p>
           </div>
-          <p>10 lpa</p>
+          <p>{props.item.salary}</p>
         </div>
         <div>
           <div style={{display:'flex', color:'grey'}}>
           <HourglassFullIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
           <p>Apply by</p>
           </div>
-          <p style={{textAlign:'center'}}>20 May '21'</p>
+          <p style={{textAlign:'center'}}>{props.item.applyBy}</p>
         </div>
       </div>
       <Button color="primary">

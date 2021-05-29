@@ -4,17 +4,18 @@ import SignUp from './components/SignUp';
 import Homepage from './pages/homepage';
 import StudentRegisterMain from './Student/Register/studentRegisterMain';
 import AddJob from './Admin/addJob';
+import JobFeed from './Student/JobFeed';
 
 function App() {
   return (
     <Router>
       {/* <StudentRegisterMain/> */}
-      {/* <AddJob/> */}
-      <Switch>
+      <JobFeed/>
+      {/* <Switch>
         <Route exact path="/" render={()=><Homepage/>}></Route>
         <Route exact path="/signup" render={()=><SignUp/>}></Route>
         <Route exact path={`/:id`} component={StudentRegisterMain}></Route>
-      </Switch>
+      </Switch> */}
     </Router>
   );
 }
