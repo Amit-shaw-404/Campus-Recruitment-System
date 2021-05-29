@@ -283,41 +283,25 @@ app.post('/addJob',(req,res)=> {
 })
 
 app.post('/jobFeed', (req, res)=>{
-    console.log(req.body);
-    const category = req.body.category;
-    const home = req.body.workFromHome; 
-    const loc = req.body.location; 
-    const sal = req.body.salary; 
-
-    if(loc!=''){
-        jobTemplate.find({jobTitle:category, workFromHome: home, location:loc, companyRank:sal}, (err, result)=>{
-            if(err){
+    const {category, companyRank, location, workFromHome}=req.body;
+    const query={};
+    if(location!="")query["location"]=location;
+    if(companyRank!="")query["companyRank"]=companyRank;
+    if(category!="")query["jobTitle"]=category;
+    query["workFromHome"]=workFromHome;
+    console.log(query);
+    jobTemplate.find(query, (err, result)=>{
+        if(err){
                 res.status(404).send(err);
-            }else{
-                console.log(result.length);
-                if(result.length!=0)
-                    res.status(200).send(result);
-                else{
-                    res.status(404).send("No Result Found");
-                }
+        }else{
+            console.log(result.length);
+            if(result.length!=0)
+                res.status(200).send(result);
+            else{
+                res.status(404).send("No Result Found");
             }
-        })
-    }
-    else{
-        console.log(req.body);
-        jobTemplate.find({jobTitle:category, workFromHome: home, companyRank:sal}, (err, result)=>{
-            if(err){
-                res.status(404).send(err)
-            }else{
-                console.log(result.length);
-                if(result.length!=0)
-                    res.status(200).send(result);
-                else{
-                    res.status(404).send("No Result Found");
-                }
-            }
-        })
-    }
+        }
+    })
 })
 
 var profileStorage = multer.diskStorage({
