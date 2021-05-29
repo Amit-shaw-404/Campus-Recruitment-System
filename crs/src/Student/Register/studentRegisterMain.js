@@ -24,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const StudentRegisterMain=()=>{
+const StudentRegisterMain=({path})=>{
     const classes = useStyles();
+    //console.log(items)
+    
     return(
     <div className={classes.root}>
         <div className={classes.container}>
@@ -38,7 +40,7 @@ const StudentRegisterMain=()=>{
                   </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
-                  <StudentRegistration/>
+                  <StudentRegistration path={path}/>
               </Grid>
           </Grid>
         </div>

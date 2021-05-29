@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -56,13 +56,59 @@ const steps = ['Address address', 'Education details', 'Upload Resume'];
 
 
 
-export default function StudentRegistration() {
+
+export default function StudentRegistration({path}) {
+
+  const [update, setUpdate] = useState(false);
+  const [items, setItems] = useState({
+    firstName: '',
+    lastName: '',
+    contact: '',
+    registration: '',
+    address1: '',
+    address2: '',
+    city: '',
+    local: '',
+    pinCode: '',
+    country: '',
+    course: '',
+    batch: '',
+    cgpa: '',
+    rank: '',
+    startDate: '',
+    endDate: '',
+    marks12: '',
+    marks10: '',
+    boards12: '',
+    boards10: '',
+  });
+
+
+  useEffect(()=>{
+    const request = async () => {
+      axios.post("http://localhost:5000/student_details",{path:path})
+        .then(
+          (result) => {
+            // console.log(path)
+            // console.log(result)
+            if(result.data.length!=0)
+              setItems(result.data[0])
+            //console.log(items)
+          }
+        )
+        .catch(e=>console.log(e))
+    }
+    request();
+  },[])
+
+
+
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <AddressForm data={details} setData={setDetails}/>;
+        return <AddressForm items={items} handleChange={handleChange}/>;
       case 1:
-        return <EduDetailsForm data={details} setData={setDetails}/>;
+        return <EduDetailsForm items={items} handleChange={handleChange}/>;
       case 2:
         return <Upload />;
       default:
@@ -72,9 +118,12 @@ export default function StudentRegistration() {
   }
 
   const classes = useStyles();
+<<<<<<< HEAD
   const [details, setDetails] = React.useState({
     job:[]
   });
+=======
+>>>>>>> e387992856a740f493392edadac5080e56c51b31
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -86,8 +135,27 @@ export default function StudentRegistration() {
     setActiveStep(activeStep - 1);
   };
 
+
+  const handleChange = (event) => {
+    //console.log(event.target.name+" "+event.target.value)
+    // console.log(items)
+    // console.log(setItems)
+    setUpdate(true);
+    setItems({ ...(items), [event.target.name]: event.target.value});
+  };
+
   const handleSubmit = () => {
-    axios.post('http://localhost:5000/studentRegister', details)
+    axios.post('http://localhost:5000/studentRegister', items)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  }
+
+  const handleUpdate = () => {
+    axios.post('http://localhost:5000/studentUpdate', items)
     .then(function (response) {
       console.log(response);
     })
@@ -102,14 +170,17 @@ export default function StudentRegistration() {
     // console.log(steps.length);
     if(activeStep==2){
       //console.log(details);
-      handleSubmit();
+      update?
+      handleUpdate()
+      :
+      handleSubmit()
     }
   };
-
   return (
     <React.Fragment>
       <CssBaseline />
-     
+    
+     {/* {console.log(items)} */}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
