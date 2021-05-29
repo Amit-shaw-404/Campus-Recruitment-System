@@ -33,7 +33,7 @@ export default function JobFeedComponent(props){
       <p style={{color:'grey', margin:'10px 0'}}>{props.item.companyName}</p>
       <div className={classes.location}>
         <LocationOnIcon style={{fontSize:'22px', color:'grey'}}/>
-        <p>{props.item.location}</p>
+        <p>{props.item.workFromHome?"Work From Home":props.item.location}</p>
       </div>
       <div className={classes.details}>
         <div>
@@ -48,7 +48,7 @@ export default function JobFeedComponent(props){
           <WorkIcon style={{fontSize:'22px', color:'grey', margin:'0 5px 5px 5px'}}/>
           <p>Salary</p>
           </div>
-          <p>{props.item.salary}</p>
+          <p>{props.item.salary} LPA</p>
         </div>
         <div>
           <div style={{display:'flex', color:'grey'}}>
@@ -58,7 +58,7 @@ export default function JobFeedComponent(props){
           <p style={{textAlign:'center'}}>{props.item.applyBy}</p>
         </div>
       </div>
-      <Button color="primary" onClick={props.handleClick}>
+      <Button color="primary" onClick={()=>props.handleClick(props.item._id)}>
         details
       </Button>
     </Paper>
