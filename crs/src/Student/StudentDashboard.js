@@ -93,7 +93,7 @@ const StudentDashboard=()=>{
         request();
     }, [])
     return(
-        <>
+        <div style={{backgroundColor:'#f8f8f8'}}>
         {!access?
             <div className={classes.greet}>
                 <h1>{msg}</h1>
@@ -107,7 +107,7 @@ const StudentDashboard=()=>{
                 )
             </>
         }
-        </>
+        </div>
     );
 }
 
