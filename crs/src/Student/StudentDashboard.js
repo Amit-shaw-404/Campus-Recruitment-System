@@ -5,6 +5,7 @@ import JobFeed from './JobFeed';
 import StudentAppbar from './studentAppBar';
 import StudentRegisterMain from './Register/studentRegisterMain';
 import { useHistory, withRouter } from 'react-router';
+import Status from './Status';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -101,10 +102,9 @@ const StudentDashboard=()=>{
             :
             <>
                 <StudentAppbar setSelected={setSelected}/>
-                (
-                    {selected===0&&<StudentRegisterMain path={path}/>}
-                    {selected===1&&<JobFeed/>}
-                )
+                {selected===0&&<StudentRegisterMain path={path}/>}
+                {selected===1&&<JobFeed/>}
+                {selected===2&&<Status id={path}/>}
             </>
         }
         </div>
