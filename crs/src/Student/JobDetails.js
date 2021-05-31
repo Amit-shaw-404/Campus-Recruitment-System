@@ -54,7 +54,7 @@ const useStyles=makeStyles({
   }
 })
 const JobDetails=({isAdmin, id})=>{
-  const [details, setDetails]=useState({});
+  const [details, setDetails]=useState({applied:[]});
   const history=useHistory();
   const enroll=history.location.pathname.replace("/", "");
   const classes=useStyles();
@@ -62,6 +62,7 @@ const JobDetails=({isAdmin, id})=>{
     const request=async()=>{
       const data=await axios.post("http://localhost:5000/find_job", {id:id})
       .then(res=>{
+        console.log(res.data);
         setDetails(res.data);
       })
       .catch(err=>{
@@ -73,9 +74,11 @@ const JobDetails=({isAdmin, id})=>{
   const handleSubmit=async()=>{
     await axios.post("http://localhost:5000/student_update", {enroll:enroll, jobId:details._id, company:details.companyName, title:details.jobTitle})
     .then(result=>{
+      alert("Applied for the job");
       console.log(result);
     })
     .catch(err=>{
+      alert("Aleady applied");
       console.log(err);
     })
   }
@@ -158,13 +161,12 @@ const JobDetails=({isAdmin, id})=>{
         </Paper>
       </div>
         {isAdmin?
-        <>
-          <AppliedStudent/>
-          <AppliedStudent/>
-          <AppliedStudent/>
-          <AppliedStudent/>
-          <AppliedStudent/>
-        </>
+          // console.log(details)
+          details.applied.map((item, index)=>(
+            <div key={index}>
+              <AppliedStudent id={item}/>
+            </div>
+          ))
         :""
         }
     </div>
