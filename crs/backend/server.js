@@ -189,7 +189,7 @@ app.post("/studentsSignUp", (req, res)=>{
         res.status(404).send(err);
     })
 })
-app.post('/studentRegister', upload.single('picture'), (req, res)=>{
+app.post('/studentRegister', (req, res)=>{
 
     var img = fs.readFileSync(req.file.path);
     var encode_image = img.toString('base64');
@@ -354,25 +354,25 @@ app.post('/stats', upload.single('resume'), function (req, res) {
   }
 });
 
-app.post('/uploadphoto', upload.single('picture'), (req, res) => {
-    var img = fs.readFileSync(req.file.path);
-    var encode_image = img.toString('base64');
-    // Define a JSONobject for the image attributes for saving to database
-    console.log(req.file, req.body)
-    var finalImg = {
-        contentType: req.file.mimetype,
-        image:  Buffer.from(encode_image, 'base64')
-    };
+// app.post('/uploadphoto', upload.single('picture'), (req, res) => {
+//     var img = fs.readFileSync(req.file.path);
+//     var encode_image = img.toString('base64');
+//     // Define a JSONobject for the image attributes for saving to database
+//     console.log(req.file, req.body)
+//     var finalImg = {
+//         contentType: req.file.mimetype,
+//         image:  Buffer.from(encode_image, 'base64')
+//     };
 
-    studentTemplate.create(finalImg, (err, result) => {
-        console.log(result)
+//     studentTemplate.create(finalImg, (err, result) => {
+//         console.log(result)
 
-        if (err) return console.log(err)
+//         if (err) return console.log(err)
 
-        console.log('saved to database')
-        res.status(204).send()       
-     })
-});
+//         console.log('saved to database')
+//         res.status(204).send()       
+//      })
+// });
 
 
 

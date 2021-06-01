@@ -7,14 +7,29 @@ import Profile from './pages/profile';
 import JobFeed from './Student/JobFeed'
 import JobDetails from './Student/JobDetails';
 import AddJob from './Admin/addJob'
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 import reportWebVitals from './reportWebVitals';
 import StudentRegistration from './Student/Register/studentRegistration';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#4E51CE',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#faa146',
+      contrastText: '#000',
+    },
+  },
+  //fontFamily: Roboto // as an aside, highly recommend importing roboto font for Material UI projects! Looks really nice
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>,
   document.getElementById('root')
 );
 

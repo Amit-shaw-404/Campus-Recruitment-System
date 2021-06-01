@@ -40,3 +40,25 @@
     transform: rotate(360deg);
   }
 }
+
+.hero_img img{
+  width: 100%;
+  max-width: 700px;
+  min-width: 200px;
+  display: block;
+  margin: auto;
+  animation-name: picani;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes picani{
+  0%{
+    transform: translateY(20px);
+  }
+  100%{
+    transform: translateY(-20px);
+  }
+}

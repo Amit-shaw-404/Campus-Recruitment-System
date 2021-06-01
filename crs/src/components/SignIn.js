@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Link} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import heroImg from '../homepage_img.svg'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,8 +47,9 @@ export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit, sho
   }
   return (
     <div>
-      <div className={classes.paper}>
-        <Grid container className={classes.nav}>
+      <div className={classes.paper} >
+        <Grid container className={classes.nav} >
+        
           <Grid
             item
             xs={6}
