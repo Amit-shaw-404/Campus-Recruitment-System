@@ -25,7 +25,8 @@ const studentTemplate=mongoose.Schema({
         company:String,
         title:String,
         status:String,
-    }]
+    }],
+    image:{type:String,require:false},
 })
 
 module.exports=mongoose.model('studentDetails', studentTemplate);

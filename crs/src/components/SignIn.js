@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "#fff",
     border:'0px solid black',
-    borderRadius:'5px'
+    borderRadius:'5px',
   },
   nav: {
     backgroundColor: "#f8f8ff",
