@@ -180,6 +180,13 @@ export default function StudentRegistration({path}) {
           <Typography component="h1" variant="h4" align="center">
             Student Registration
           </Typography>
+          {/* <form action="http://localhost:5000/uploadphoto" enctype="multipart/form-data" method="post" onsubmit="event.preventDefault();">
+                            <div class="form-group">
+                            <input value={path} name="enrol" type="hidden"></input>
+                            <input type="file" class="form-control-file" name="picture" />
+                            <Button type="submit" variant="contained" color="primary">Upload</Button>
+                            </div>
+          </form> */}
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>

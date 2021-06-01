@@ -10,6 +10,7 @@ import Dialog from "@material-ui/core/Dialog";
 import MuiDialogContent from "@material-ui/core/DialogContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
+import heroImg from '../homepage_img.svg'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -99,6 +100,11 @@ export default function SignUp() {
   };
   return (
     <div style={{display:'flex', justifyContent:"center", height:'100vh', alignItems:'center'}}>
+      <Grid item xs={6}>
+              <div className="hero_img" style={{marginTop:'50px', marginRight:'50px'}} >
+                <img src={heroImg} alt="campus recruitment system"></img>
+              </div>
+      </Grid>
       {success!==""?
         <Typography variant="h5">{success}</Typography>
         :

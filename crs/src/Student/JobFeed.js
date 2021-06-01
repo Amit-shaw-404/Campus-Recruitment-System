@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container:{
     width:'80%',
-    // border:'1px solid black'
+    minHeight:'100vh'
   },
   filter:{
     width:'100%',

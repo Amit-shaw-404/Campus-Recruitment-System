@@ -44,9 +44,13 @@ export default function EduDetailsForm({items, handleChange}) {
               label="Current course"
               onChange={handleChange}
             >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={10}>Information Technology</MenuItem>
+            <MenuItem value={20}>Computer Science</MenuItem>
+            <MenuItem value={30}>Civil</MenuItem>
+            <MenuItem value={30}>Mechanical</MenuItem>
+            <MenuItem value={30}>Electrical</MenuItem>
+            <MenuItem value={30}>Electronics</MenuItem>
+            <MenuItem value={30}>Aerospace</MenuItem>
             </Select>
         </FormControl>
         </Grid>
@@ -61,9 +65,10 @@ export default function EduDetailsForm({items, handleChange}) {
               name="batch"
               onChange={handleChange}
             >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={10}>2018-22</MenuItem>
+            <MenuItem value={20}>2019-23</MenuItem>
+            <MenuItem value={30}>2020-24</MenuItem>
+            <MenuItem value={10}>2021-25</MenuItem>
             </Select>
         </FormControl>
         </Grid>

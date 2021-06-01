@@ -12,6 +12,7 @@ const studentTemplate=require('./models/studentRegister');
 const adminAccountTemplate = require('./models/adminAccounts');
 const multer = require('multer');
 const path = require('path');
+const fs =require('fs');
 dotenv.config();
 
 //Connecting mongodb 
@@ -86,7 +87,7 @@ app.post("/student_details", (req,res) => {
             // console.log(err)
         }
         else{
-            // console.log(result)
+            //console.log(result)
             res.send(result); //result's length may be zero. in that case we will check it in stufent registration
         }
     })
@@ -189,6 +190,16 @@ app.post("/studentsSignUp", (req, res)=>{
     })
 })
 app.post('/studentRegister', (req, res)=>{
+
+    var img = fs.readFileSync(req.file.path);
+    var encode_image = img.toString('base64');
+    // Define a JSONobject for the image attributes for saving to database
+    console.log(req.file, req.body)
+    var finalImg = {
+        contentType: req.file.mimetype,
+        image:  Buffer.from(encode_image, 'base64')
+    };
+
     const student=new studentTemplate({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
@@ -210,6 +221,7 @@ app.post('/studentRegister', (req, res)=>{
         endDate:req.body.endDate,
         boards12:req.body.boards12,
         boards10:req.body.boards10,
+        image: finalImg,
     });
     student.save()
     .then(result=>{
@@ -324,15 +336,43 @@ var profileStorage = multer.diskStorage({
     }
 })
 
-var uploadResume = multer({
+var upload = multer({
     storage: profileStorage
 })
 
-app.post('/stats', uploadResume.single('resume'), function (req, res) {
+app.post('/stats', upload.single('resume'), function (req, res) {
    // req.file is the name of your file in the form above, here 'uploaded_file'
    // req.body will hold the text fields, if there were any 
    console.log(req.file, req.body)
+   try {
+    // res.send("Resume Uploded!");
+    res.status(204).send()
+    //res.redirect('/');
+  } catch (error) {
+    console.log(error);
+    res.send(400);
+  }
 });
+
+// app.post('/uploadphoto', upload.single('picture'), (req, res) => {
+//     var img = fs.readFileSync(req.file.path);
+//     var encode_image = img.toString('base64');
+//     // Define a JSONobject for the image attributes for saving to database
+//     console.log(req.file, req.body)
+//     var finalImg = {
+//         contentType: req.file.mimetype,
+//         image:  Buffer.from(encode_image, 'base64')
+//     };
+
+//     studentTemplate.create(finalImg, (err, result) => {
+//         console.log(result)
+
+//         if (err) return console.log(err)
+
+//         console.log('saved to database')
+//         res.status(204).send()       
+//      })
+// });
 
 
 

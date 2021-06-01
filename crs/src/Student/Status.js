@@ -21,16 +21,9 @@ export default function Status({id}){
         request();
     }, []);
     return(
-        <div style={{display:'flex', justifyContent:'center', }}>
-        <Paper style={{width:'60%', marginTop:'150px', display:'flex', justifyContent:'center'}}>
+        <div style={{display:'flex', justifyContent:'center', minHeight:'100vh'}}>
+        <Paper style={{width:'60%', marginTop:'150px', display:'flex', justifyContent:'center', height:'auto'}}>
             <table>
-                {/* <thead>
-                    <tr>
-                        <th>Company name</th>
-                        <th>Job Title</th>
-                        <th>Status</th>
-                    </tr>
-                </thead> */}
                 <tbody>
                     {details.map((item) => 
                         <tr key={item.jobId}>

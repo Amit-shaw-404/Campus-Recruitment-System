@@ -9,7 +9,6 @@ import '../App.css';
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
-    fontFamily:'Libre Baskerville',
     fontSize:'1.8rem'
   },
   appbar: {

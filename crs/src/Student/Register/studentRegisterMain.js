@@ -1,5 +1,6 @@
 import { Avatar, Grid, makeStyles, Paper } from '@material-ui/core';
 import StudentRegistration from './studentRegistration';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,8 +33,10 @@ const StudentRegisterMain=({path})=>{
             <Grid container spacing={4}>
               <Grid Grid item xs={12} sm={3} className={classes.photoUpload}>
                   <Paper>
-                      <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',marginTop:'10px'}}>
-                          <Avatar variant="rounded" alt="Remy Sharp" className={classes.avatar} src="https://qph.fs.quoracdn.net/main-qimg-99edf6c9b901fd291b7910ea0bbe8811" />
+                      <div style={{display:'flex',justifyContent: 'center',alignItems: 'center',}}>
+                          <Avatar variant="rounded" alt="Remy Sharp" className={classes.avatar} src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" />
+                          
+                        
                       </div>
                   </Paper>
               </Grid>
