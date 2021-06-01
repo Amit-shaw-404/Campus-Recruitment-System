@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {BrowserRouter, Redirect, Switch, withRouter} from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
@@ -19,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor:'#f8f8f8',
-    height:'100vh'
+    minHeight:'100vh'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -39,8 +35,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#000'
   },
   signin:{
-    width:'100%',
+    width:'80%',
     marginTop:theme.spacing(10),
+    marginBottom:theme.spacing(10),
+
   },
   front:{
     width:'100%',
@@ -98,7 +96,7 @@ const Homepage = (props) => {
         </BrowserRouter>
         :
         <div className={classes.root}>
-          <AppBar position="static" className={classes.appbar}>
+          {/* <AppBar position="static" className={classes.appbar}>
             <Toolbar>
               <Typography variant="h6" className={classes.title}>
                 Campus Recruitment System
@@ -106,16 +104,16 @@ const Homepage = (props) => {
               <Button color="inherit" >Login</Button>
               <Button color="inherit">Statistics</Button>
             </Toolbar>
-          </AppBar>
+          </AppBar> */}
           <Container >
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <div className={classes.front}>
                 <h2>IIESTs Campus Recruitment</h2>
                 <p>Join in to apply for placements</p>
               </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <Paper className={classes.signin}>
                 <SignIn 
                   flag={flag} 
@@ -125,7 +123,7 @@ const Homepage = (props) => {
                   handleSubmit={handleSubmit}
                   showerr={showerr}
                   setShowerr={setShowerr}
-                  />
+                />
               </Paper>
             </Grid>
           </Grid>
