@@ -5,6 +5,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,8 +19,30 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function AppliedStudent(){
+export default function AppliedStudent({id}){
+    console.log(id);
     const classes=useStyles();
+    const [details, setDetails]=useState({
+      firstName:'',
+      lastName:'',
+      contact:'',
+      cgpa:'',
+      rank:'',
+      batch:'',
+      course:'',
+    });
+    useEffect(()=>{
+      const request=async()=>{
+        const data=await axios.post('http://localhost:5000/student_details', {path:id})
+        .then(result=>{
+          setDetails(result.data[0]);
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+      }
+      request();
+    }, [])
     return(
     <Card className={classes.root}>
       <CardHeader
@@ -27,11 +51,13 @@ export default function AppliedStudent(){
             R
           </Avatar>
         }
-        title="Amit Kumar Shaw"
-        subheader="B.Tech 2019-2023"
+        title={`${details.firstName} ${details.lastName}`}
+        subheader={`${details.course} Batch-${details.batch}`}
       />
       <CardContent>
-        details
+        <p>
+          GPA : {details.cgpa}, Rank : {details.rank}, Contact : {details.contact}
+        </p>
       </CardContent>
       <CardActions disableSpacing>
         <Button>Resume</Button>

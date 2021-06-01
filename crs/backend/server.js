@@ -84,7 +84,7 @@ app.post("/student_details", (req,res) => {
     //console.log(path);
     studentTemplate.find({registration:path}, (err,result) => {
         if(err){
-            console.log(err)
+            // console.log(err)
         }
         else{
             //console.log(result)
@@ -101,41 +101,42 @@ app.post("/student_update", (req, res)=>{
     var flag=0;
     studentTemplate.find({registration:enroll}, (err, result)=>{
         if(err){
-            res.status(404).send(error);
+            res.status(404).send(err);
         }else{
             job=result[0].job;
             for(let i=0;i<job.length;i++){
-                if(job[i].jobId===jobId)flag=1;
+                if(job[i].jobId==jobId){
+                    flag=1;
+                    break;
+                }
             }
-            console.log("flag = "+flag);
-        }
-    })
-    jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
-        if(err){
-            res.status(404).send(err);
-        }else{
-            applied=result[0].applied;
-        }
-    })
-    job.push({jobId:jobId, company:company, title:title, status:'pending'});
-    applied.push(enroll);
-    if(flag==0){
-        studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
-        .then(res=>{
-            console.log(res);
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+            if(flag===1){
+                res.status(404).send("Already Applied");
+            }else{
+                jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
+                    if(err){
+                        res.status(404).send(err);
+                    }else{
+                        applied=result[0].applied;
+                        job.push({jobId:jobId, company:company, title:title, status:'pending'});
+                        applied.push(enroll);
+                        studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
+                        .then(res=>{
+                        })
+                        .catch(err=>{
+                        })
 
-        jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
-        .then(res=>{
-            console.log(res);
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    }
+                        jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
+                        .then(res=>{
+                        })
+                        .catch(err=>{
+                        })
+                        res.send("Applied successfully");
+                    }
+                })
+            }
+        }
+    })
 })
 
 app.post('/students', (req, res)=>{
