@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function AppliedStudent({id}){
+export default function AppliedStudent({id, jobId}){
     console.log(id);
     const classes=useStyles();
     const [details, setDetails]=useState({
@@ -43,6 +43,31 @@ export default function AppliedStudent({id}){
       }
       request();
     }, [])
+    const [appStatus, setAppStatus] = useState({status:"pending", jobId:jobId, studentId:id});
+    const handleApplication = (event)=>{
+      setAppStatus({...appStatus,[event.target.name]:event.target.value});
+      console.log(appStatus);
+    }
+    useEffect(()=>{
+      const id= setTimeout(()=>{
+        const request=async()=>{
+          const data = await axios.post('http://localhost:5000/applicationStatus', appStatus)
+          .then(result=>{
+            console.log("Changes made")
+          })
+          .catch(err=>{
+            console.log("bye")
+            console.log(err);
+          })
+        }
+        request();
+      },3000)
+      return () => {
+        clearTimeout(id);
+      }
+    },[appStatus])
+
+    
     return(
     <Card className={classes.root}>
       <CardHeader
@@ -61,9 +86,12 @@ export default function AppliedStudent({id}){
       </CardContent>
       <CardActions disableSpacing>
         <Button>Resume</Button>
-        <select className={classes.select}>
-            <option>Accept</option>
-            <option>Reject</option>
+        <select className={classes.status} name="status" value={appStatus.status} onChange={handleApplication}>
+            <option value="Application submitted">Application submitted</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Selected for interview">Selected for interview</option>
+            <option value="Rejected for interview">Rejected for interview</option>
         </select>
       </CardActions>
     </Card>

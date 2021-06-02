@@ -93,25 +93,140 @@ app.post("/student_details", (req,res) => {
     })
 })
 
+app.post('/applicationStatus',(req,res)=>{
+    const status = req.body.status;
+    const jobId = req.body.jobId;
+    const enroll = req.body.studentId;
+    var job=[];
+
+    jobTemplate.find({_id:jobId}, (err, result)=>{
+        if(err){
+            console.log(jobId);
+            res.status(404).send(err);
+            console.log("Error in connecting with jobDetails db: "+err);
+        }else{
+            var accepted = result[0].accepted;
+            var flag=0;
+            for(let i=0; i<accepted.length; i++){
+                if(accepted[i]==enroll){
+                    flag=1;
+                    break;
+                }
+            }
+            //Updating student status for this job
+            studentTemplate.find({registration: enroll}, (err, result1)=>{
+                if(err){
+                    res.status(404).send(err);
+                }else{
+                    job=result1[0].job;
+                    for(var i=0; i<job.length; i++){
+                        if(job[i].jobId==jobId){
+                            job[i].status=status;
+                        }
+                    }
+                    studentTemplate.updateOne({registration: enroll}, {$set:{"job":job}})
+                    .then(res=>{})
+                    .catch(err={})
+                }
+            })
+
+            if(status=="Application submitted"){
+                console.log(status)
+            }
+            if(status=="Selected for interview"){
+                console.log(status)
+            }
+            if(status=="Rejected"){
+                console.log(status)
+                if(flag){
+                    console.log(flag);
+                    jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)},{$pull:{
+                        accepted:enroll
+                    }})
+                    .then(res=>{})
+                    .catch(err={})
+                }else{
+                    res.status(404).send("Student not in accepted list");
+                }
+            }
+            if(status=="Accepted"){
+                console.log(status)
+                if(!flag){
+                    jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)},{$push:{
+                        accepted:enroll
+                    }})
+                    .then(res=>{})
+                    .catch(err={})
+                }else{
+                    res.status(404).send("Student already accepted");
+                }
+            }
+            if(status=="Rejected for interview"){
+                console.log(status)
+                if(!flag){
+                    jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)},{$pull:{
+                        applied:enroll
+                    }})
+                    .then(res=>{})
+                    .catch(err={})
+                }else{
+                    res.status(404).send("Student already accepted");
+                }
+            }
+        }
+    })
+})
 
 app.post("/student_update", (req, res)=>{
     const {enroll, jobId, company, title}=req.body;
     var job=[];
     var applied=[];
-    var flag=0;
+    var flag1=0;
+    var flag2=0;
     studentTemplate.find({registration:enroll}, (err, result)=>{
         if(err){
             res.status(404).send(err);
         }else{
             job=result[0].job;
             for(let i=0;i<job.length;i++){
-                if(job[i].jobId==jobId){
-                    flag=1;
+                if(job[i].jobId==jobId && job[i].status!="Rejected for interview"){
+                    flag1=1;
+                    break;
+                }
+                else if(job[i].jobId==jobId && job[i].status==="Rejected for interview"){
+                    flag2=1;
                     break;
                 }
             }
-            if(flag===1){
+            if(flag1===1){
                 res.status(404).send("Already Applied");
+            }else if(flag2){
+                jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
+                    if(err){
+                        res.status(404).send(err);
+                    }else{
+                        applied=result[0].applied;
+                        for(var i=0; i<job.length; i++){
+                            if(job[i].jobId==jobId){
+                                job[i].status='pending';
+                            }
+                        }
+                        studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
+                        .then(res=>{
+                        })
+                        .catch(err=>{
+                        })
+                        applied.push(enroll);
+                        jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
+                        .then(res=>{
+                        })
+                        .catch(err=>{
+                        })
+                        console.log("Information updated in Student collection: "+job);
+                        console.log("Information added in jobDetails collection: "+applied);
+                        res.send("Reapplied successfully");
+                    }
+                })
             }else{
                 jobTemplate.find({_id:mongoose.Types.ObjectId(jobId)}, (err, result)=>{
                     if(err){
@@ -119,18 +234,19 @@ app.post("/student_update", (req, res)=>{
                     }else{
                         applied=result[0].applied;
                         job.push({jobId:jobId, company:company, title:title, status:'pending'});
-                        applied.push(enroll);
                         studentTemplate.updateOne({registration:enroll}, {$set:{"job":job}})
                         .then(res=>{
                         })
                         .catch(err=>{
                         })
-
+                        applied.push(enroll);
                         jobTemplate.updateOne({_id:mongoose.Types.ObjectId(jobId)}, {$set:{"applied":applied}})
                         .then(res=>{
                         })
                         .catch(err=>{
                         })
+                        console.log("Information added in Student collection: "+job);
+                        console.log("Information added in jobDetails collection: "+applied);
                         res.send("Applied successfully");
                     }
                 })

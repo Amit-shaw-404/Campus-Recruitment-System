@@ -1,4 +1,4 @@
-import {Paper, Typography, Button, Divider} from '@material-ui/core'
+import {Paper, Typography, Button, Divider, TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -162,11 +162,27 @@ const JobDetails=({isAdmin, id})=>{
       </div>
         {isAdmin?
           // console.log(details)
+          <div>
+          <form className={classes.container} noValidate>
+            <TextField
+              id="datetime-interview"
+              label="Interview Timings:"
+              type="datetime-local"
+              defaultValue=""
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </form>
+          {
           details.applied.map((item, index)=>(
             <div key={index}>
-              <AppliedStudent id={item}/>
+              <AppliedStudent jobId={details._id} id={item}/>
             </div>
           ))
+        }
+        </div>
         :""
         }
     </div>
