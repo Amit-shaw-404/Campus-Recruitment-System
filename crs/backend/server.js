@@ -221,7 +221,7 @@ app.post('/studentRegister', (req, res)=>{
         endDate:req.body.endDate,
         boards12:req.body.boards12,
         boards10:req.body.boards10,
-        image: finalImg,
+        resume:req.body.resume,
     });
     student.save()
     .then(result=>{
@@ -257,6 +257,7 @@ app.post('/studentUpdate', (req, res)=>{
         endDate:req.body.endDate,
         boards12:req.body.boards12,
         boards10:req.body.boards10,
+        resume:req.body.resume,
     }})
 
     .then(result=>{

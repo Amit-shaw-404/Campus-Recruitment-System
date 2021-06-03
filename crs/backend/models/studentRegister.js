@@ -27,6 +27,7 @@ const studentTemplate=mongoose.Schema({
         status:String,
     }],
     image:{type:String,require:false},
+    resume:{type:String,require:true},
 })
 
 module.exports=mongoose.model('studentDetails', studentTemplate);

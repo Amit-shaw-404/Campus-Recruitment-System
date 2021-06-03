@@ -80,6 +80,7 @@ export default function StudentRegistration({path}) {
     marks10: '',
     boards12: '',
     boards10: '',
+    resume: '',
   });
 
 
@@ -111,7 +112,7 @@ export default function StudentRegistration({path}) {
       case 1:
         return <EduDetailsForm items={items} handleChange={handleChange}/>;
       case 2:
-        return <Upload path={path}/>;
+        return <Upload items={items} handleChange={handleChange} path={path}/>;
       default:
         throw new Error('Unknown step');
     }

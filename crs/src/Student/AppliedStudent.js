@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,7 +61,8 @@ export default function AppliedStudent({id}){
         </p>
       </CardContent>
       <CardActions disableSpacing>
-        <Button>Resume</Button>
+        <a href={details.resume} style={{textDecoration:'none'}} target="_blank"><Button variant="containes">Resume</Button></a>
+        
         <select className={classes.select}>
             <option>Accept</option>
             <option>Reject</option>
