@@ -72,11 +72,13 @@ export default function AddressForm({items, handleChange}) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            required
             id="registration"
             name="registration"
             label="Enrollment No."
             value = {items.registration}
+            InputProps={{
+              readOnly: true,
+            }}
             fullWidth
             onChange={handleChange}
             autoComplete="registration"
