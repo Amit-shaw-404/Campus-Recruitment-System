@@ -93,7 +93,6 @@ export default function SignIn({ flag, setFlag, cred, setCred, handleSubmit, sho
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={handleChange}
           />
           <TextField
